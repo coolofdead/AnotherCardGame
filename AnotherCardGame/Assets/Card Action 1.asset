@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a812e95f3adfe043959e1daa7cf685f, type: 3}
-  m_Name: Card Action
+  m_Name: Card Action 1
   m_EditorClassIdentifier: 
-  target: 3
+  target: 0
   creatureType: 0
-  cardActionName: 
-  description: 
-  artwork: {fileID: 0}
+  cardActionName: +2000 power
+  description: Fire Buff
+  artwork: {fileID: 21300000, guid: f03e169c8711abb418f80dc80273bdbe, type: 3}
+  requireMinPower: 0
+  minPowerRequired: 0
   hasModulation: 1
   modulation:
     shouldModulatePower: 1
     powerModulationType: 0
-    powerAmount: 1000
+    powerAmount: 2000
     shouldModulateNbHit: 0
     nbHitModulationType: 0
     nbHitAmount: 2

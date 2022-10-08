@@ -15,6 +15,9 @@ public class CardActionSO : ScriptableObject
     public string description;
     public Sprite artwork;
 
+    public bool requireMinPower;
+    [ConditionalField("requireMinPower", false)] public int minPowerRequired;
+
     public bool hasModulation;
     [ConditionalField("hasModulation", false)] public CardActionModulate modulation;
 }
