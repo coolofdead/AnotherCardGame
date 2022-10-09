@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: 1
   creatureType: 2
-  cardActionName: -2000 power
-  description: Plant Debuff
+  cardActionName: Plant Debuff
+  description: -1000 power
   artwork: {fileID: 21300000, guid: b65d4ac0d1875404c92f90a786039e54, type: 3}
   requireMinPower: 1
   minPowerRequired: 1000
@@ -23,9 +23,9 @@ MonoBehaviour:
   modulation:
     shouldModulatePower: 1
     powerModulationType: 1
-    powerAmount: 2000
+    powerAmount: 1000
     shouldModulateNbHit: 0
-    nbHitModulationType: 0
+    nbHitModulationType: 1
     nbHitAmount: 2
     shouldModulateSpeed: 0
     speedModulationType: 0

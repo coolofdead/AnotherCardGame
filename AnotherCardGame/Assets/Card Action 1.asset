@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: 0
   creatureType: 0
-  cardActionName: +2000 power
-  description: Fire Buff
+  cardActionName: Fire Buff
+  description: +2500 power
   artwork: {fileID: 21300000, guid: f03e169c8711abb418f80dc80273bdbe, type: 3}
   requireMinPower: 0
   minPowerRequired: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
   modulation:
     shouldModulatePower: 1
     powerModulationType: 0
-    powerAmount: 2000
+    powerAmount: 2500
     shouldModulateNbHit: 0
     nbHitModulationType: 0
     nbHitAmount: 2

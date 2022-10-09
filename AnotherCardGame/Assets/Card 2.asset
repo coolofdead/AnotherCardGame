@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Card 2
   m_EditorClassIdentifier: 
   creatureType: 2
-  power: 2000
+  power: 1500
   nbHit: 2
   speed: 1
   creatureName: Jean
