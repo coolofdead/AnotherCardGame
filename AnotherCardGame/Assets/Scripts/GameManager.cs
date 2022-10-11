@@ -4,14 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-using System;
 
 public class GameManager : MonoBehaviour
 {
-    public static Action<int> onStartRound;
-    public static Action<int> onEndRound;
-    public static Action<CreatureFightingUI, int> onCratureAttack;
-
     private const int MAX_CARD_ACTION_TO_SELECT = 3;
     private const int NB_FIGHT_ROUND = 3;
 
@@ -70,6 +65,8 @@ public class GameManager : MonoBehaviour
             CreatureFightingUI firstAttacker = playerCreatureFighting.stats.speed >= opponentCreatureFighting.stats.speed ? playerCreatureFighting : opponentCreatureFighting;
             CreatureFightingUI targetCreature = firstAttacker == playerCreatureFighting ? opponentCreatureFighting : playerCreatureFighting;
 
+            GameEventManager.TriggerEvent(EffectActivationTimeType.StartRound, new EventStruct());
+
             // Activate effects
             CreatureSO playerSupportCreature = player.deck.creatures[playerCardActionSelected[0]];
             if (playerSupportCreature.HasAnEffectAndRequirementsAreMet(playerCreatureFighting, opponentCreatureFighting))
@@ -86,7 +83,12 @@ public class GameManager : MonoBehaviour
             // First attacker attacks
             for (int attack = 0; attack < firstAttacker.stats.nbHit; attack++)
             {
-                targetCreature.TakeDamage(firstAttacker.stats.power);
+                bool hasTakenDamage = targetCreature.TakeDamage(firstAttacker.stats.power);
+                if (hasTakenDamage)
+                {
+                    EffectActivationTimeType damageEventType = firstAttacker == playerCreatureFighting ? EffectActivationTimeType.OnDamageDeal : EffectActivationTimeType.OnDamageReceived;
+                    GameEventManager.TriggerEvent(damageEventType, new EventStruct());
+                }
             }
 
             yield return new WaitForSeconds(2);
@@ -97,7 +99,9 @@ public class GameManager : MonoBehaviour
                 firstAttacker.TakeDamage(targetCreature.stats.power);
             }
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(5);
+
+            GameEventManager.TriggerEvent(EffectActivationTimeType.EndRound, new EventStruct());
         }
 
         CreatureFightingUI winnerCreature = playerCreatureFighting.damage < opponentCreatureFighting.damage ? playerCreatureFighting : opponentCreatureFighting;
@@ -114,6 +118,8 @@ public class GameManager : MonoBehaviour
 
         currentFight++;
         SetupNextFight();
+
+        GameEventManager.TriggerEvent(EffectActivationTimeType.OnEndFight, new EventStruct());
 
         playerDeckTMP.text = (player.deck.creatures.Length - currentFight).ToString();
         opponnentDeckTMP.text = (player.deck.creatures.Length - currentFight).ToString();

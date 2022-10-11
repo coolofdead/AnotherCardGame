@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
 
 public class CreatureFightingUI : MonoBehaviour
 {
-    public static Action<CreatureFightingUI, int> onDamageReceived;
-
     public Color plantFrameColor;
     public Color fireFrameColor;
     public Color waterFrameColor;
@@ -62,7 +59,7 @@ public class CreatureFightingUI : MonoBehaviour
         artworkImage.sprite = creatureSO.artwork;
     }
 
-    public void TakeDamage(int amount)
+    public bool TakeDamage(int amount)
     {
         int damageLeft = Mathf.Abs(amount - stats.shield);
 
@@ -70,10 +67,12 @@ public class CreatureFightingUI : MonoBehaviour
         //shieldTMP.text = stats.shield <= 0 ? "" : stats.shield.ToString();
 
         if (damageLeft <= 0)
-            return;
+            return false;
 
         damage += damageLeft;
         damageTMP.text = damage.ToString();
+
+        return true;
     }
 
     public  void ResetDamage()

@@ -20,8 +20,6 @@ public class CreatureEffect
 
     public void Activate(CreatureFightingUI selfCreature, CreatureFightingUI opponentCreature)
     {
-        // TODO : Add call to events like end turn and stuff
-
         if (hasModulation)
         {
             modulation.Modulate(selfCreature, opponentCreature, target);
@@ -34,6 +32,19 @@ public class CreatureEffect
 
             if (target == CreatureEffectTargetType.Opponent || target == CreatureEffectTargetType.Both)
                 damage.DealDamage(opponentCreature);
+        }
+    }
+
+    public void RegisterActivation()
+    {
+        GameEventManager.RegisterEffect(this, activationTime);
+    }
+
+    public void OnGameEvent(EventStruct gameEventData)
+    {
+        if (hasRequirement == false || requirement.IsRequirementMet(gameEventData.playerCreature, gameEventData.opponentCreature))
+        {
+            Activate(gameEventData.playerCreature, gameEventData.opponentCreature);
         }
     }
 }

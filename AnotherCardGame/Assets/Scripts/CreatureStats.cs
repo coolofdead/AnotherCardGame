@@ -8,8 +8,8 @@ public class CreatureStats
     public int power;
     [Range(0, 9)]
     public int nbHit;
-    [Range(1, 9)]
-    public int speed = 1;
+    [Range(0, 9)]
+    public int speed;
     [RangeEx(0, 10000, 500)]
     public int shield;
 
@@ -41,6 +41,24 @@ public class CreatureStats
     public static CreatureStats operator -(CreatureStats a, CreatureStats b)
     {
         return new CreatureStats { power = a.power - b.power, nbHit = a.nbHit - b.nbHit, speed = a.speed - b.speed, shield = a.shield - b.shield };
+    }
+
+    public static CreatureStats operator *(CreatureStats a, CreatureStats b)
+    {
+        b.power = b.power == 0 ? 1 : b.power;
+        b.nbHit = b.nbHit == 0 ? 1 : b.nbHit;
+        b.speed = b.speed == 0 ? 1 : b.speed;
+        b.shield = b.shield == 0 ? 1 : b.shield;
+        return new CreatureStats { power = a.power * b.power, nbHit = a.nbHit * b.nbHit, speed = a.speed * b.speed, shield = a.shield * b.shield };
+    }
+
+    public static CreatureStats operator /(CreatureStats a, CreatureStats b)
+    {
+        b.power = b.power == 0 ? 1 : b.power;
+        b.nbHit = b.nbHit == 0 ? 1 : b.nbHit;
+        b.speed = b.speed == 0 ? 1 : b.speed;
+        b.shield = b.shield == 0 ? 1 : b.shield;
+        return new CreatureStats { power = a.power / b.power, nbHit = a.nbHit / b.nbHit, speed = a.speed / b.speed, shield = a.shield / b.shield };
     }
 
     public static bool operator >(CreatureStats a, CreatureStats b)

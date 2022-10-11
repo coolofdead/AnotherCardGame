@@ -43,6 +43,12 @@ public class CreatureSO : ScriptableObject
     {
         foreach (CreatureEffect creatureEffect in effect.Value)
         {
+            if (creatureEffect.activationTime != EffectActivationTimeType.Default)
+            {
+                creatureEffect.RegisterActivation();
+                continue;
+            }
+
             if (creatureEffect.hasRequirement == false || creatureEffect.requirement.IsRequirementMet(selfCreature, opponentCreature))
             {
                 creatureEffect.Activate(selfCreature, opponentCreature);

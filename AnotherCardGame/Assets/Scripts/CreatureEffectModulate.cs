@@ -1,11 +1,10 @@
 using MyBox;
 using System;
+using UnityEngine;
 
 [Serializable]
 public class CreatureEffectModulate
 {
-    public static Action onStatModified;
-
     public bool shouldModulatePower;
     [ConditionalField("shouldModulatePower", false)] public ModulationType powerModulationType;
     [ConditionalField("shouldModulatePower", false)] public int powerAmount;
@@ -19,11 +18,15 @@ public class CreatureEffectModulate
     [ConditionalField("shouldModulateSpeed", false)] public int speedAmount;
 
     public bool shouldModulateShield;
-    [ConditionalField("shouldModulateSpeed", false)] public ModulationType shieldModulationType;
-    [ConditionalField("shouldModulateSpeed", false)] public int shieldAmount;
+    [ConditionalField("shouldModulateShield", false)] public ModulationType shieldModulationType;
+    [ConditionalField("shouldModulateShield", false)] public int shieldAmount;
 
     public void Modulate(CreatureFightingUI playerCreature, CreatureFightingUI opponentCreature, CreatureEffectTargetType target)
     {
+        EffectActivationTimeType statsModifiedEventType = target == CreatureEffectTargetType.Self || target == CreatureEffectTargetType.Both ?
+                                                                    EffectActivationTimeType.OnSelfStatModified : EffectActivationTimeType.OnOpponentStatModified;
+        GameEventManager.TriggerEvent(statsModifiedEventType, new EventStruct());
+
         if (shouldModulatePower)
         {
             if (target == CreatureEffectTargetType.Self || target == CreatureEffectTargetType.Both)
@@ -70,6 +73,12 @@ public class CreatureEffectModulate
                 break;
             case ModulationType.Substract:
                 targetCreature.stats-= statsToModulate;
+                break;
+            case ModulationType.Multiply:
+                targetCreature.stats *= statsToModulate;
+                break;
+            case ModulationType.Divide:
+                targetCreature.stats /= statsToModulate;
                 break;
             default:
                 break;

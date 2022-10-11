@@ -1002,6 +1002,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1235363271}
+  - {fileID: 1757191486}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3084,14 +3085,14 @@ MonoBehaviour:
     deck:
       creatures:
       - {fileID: 11400000, guid: d3ce625e1a70f98439c48a18d5a75eef, type: 2}
-      - {fileID: 11400000, guid: d3ce625e1a70f98439c48a18d5a75eef, type: 2}
-      - {fileID: 11400000, guid: d3ce625e1a70f98439c48a18d5a75eef, type: 2}
-      - {fileID: 11400000, guid: d3ce625e1a70f98439c48a18d5a75eef, type: 2}
-      - {fileID: 11400000, guid: d3ce625e1a70f98439c48a18d5a75eef, type: 2}
-      - {fileID: 11400000, guid: d3ce625e1a70f98439c48a18d5a75eef, type: 2}
-      - {fileID: 11400000, guid: d3ce625e1a70f98439c48a18d5a75eef, type: 2}
-      - {fileID: 11400000, guid: d3ce625e1a70f98439c48a18d5a75eef, type: 2}
-      - {fileID: 11400000, guid: d3ce625e1a70f98439c48a18d5a75eef, type: 2}
+      - {fileID: 11400000, guid: 4ec9c3c3518b9ed4da3474df01772787, type: 2}
+      - {fileID: 11400000, guid: 6c1da27995dbc12488464e4ce34f6c1b, type: 2}
+      - {fileID: 11400000, guid: ac0f14fc644a88e43924f248b9e7572e, type: 2}
+      - {fileID: 11400000, guid: 0d4c06721c993184fa637d790b872c87, type: 2}
+      - {fileID: 11400000, guid: deb66d36b3fb63846adca9eb759ffa6b, type: 2}
+      - {fileID: 11400000, guid: b216c2edf0692764b8f901f7e7966282, type: 2}
+      - {fileID: 11400000, guid: f6fc7e5415602f145a7974a1b5f3f19f, type: 2}
+      - {fileID: 11400000, guid: fa0c5f273b6dca9419d0f93ac5948378, type: 2}
   opponent:
     deck:
       creatures:
@@ -4664,6 +4665,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!1 &1757191485
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1757191486}
+  - component: {fileID: 1757191487}
+  m_Layer: 0
+  m_Name: GameEventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1757191486
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757191485}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 425757087}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1757191487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757191485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c5c4aaf7219b904eafb5bb98b8c6332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 1235363272}
 --- !u!1 &1776592539
 GameObject:
   m_ObjectHideFlags: 0
