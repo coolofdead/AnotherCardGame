@@ -1,34 +1,32 @@
 using System;
+using MyBox;
 
 [Serializable]
 public class CreatureEffectRequirement
 {
-    public CreatureEffectTargetType creatureEffectTargetType = CreatureEffectTargetType.Self;
-    public CreatureEffectRequirementType creatureEffectRequirementType;
+    public bool requireStats;
+    public bool requireCreatureType;
+    public bool requireSubCreatureType;
 
-    public CreatureStats stats;
+    [ConditionalField("requireStats", false)] public CreatureEffectRequirementStats requirementStats;
+    [ConditionalField("requireCreatureType", false)] public CreatureEffectRequirementCreatureType requirementCreatureType;
+    [ConditionalField("requireSubCreatureType", false)] public CreatureEffectRequirementSubCreatureType requirementSubCreatureType;
 
-    public bool IsRequirementMet(CreatureFightingUI selfCreature, CreatureFightingUI opponentCreature)
+    public bool IsRequirementsMet(CreatureFightingUI selfCreature, CreatureFightingUI opponentCreature)
     {
-        bool selfCompare = true;
-        bool opponentCompare = true;
-        bool selfToOpponent = true;
+        bool requirementStatsMet = requireStats;
+        bool requirementCreatureTypeMet = requireCreatureType;
+        bool requirementSubCreatureTypeMet = requireSubCreatureType;
 
-        if (creatureEffectTargetType == CreatureEffectTargetType.Self || creatureEffectTargetType == CreatureEffectTargetType.Both)
-        {
-            selfCompare = selfCreature.stats.Compare(stats, creatureEffectRequirementType);
-        }
+        if (requireStats)
+            requirementStats.IsRequirementMet(selfCreature, opponentCreature);
 
-        if (creatureEffectTargetType == CreatureEffectTargetType.Opponent || creatureEffectTargetType == CreatureEffectTargetType.Both)
-        {
-            opponentCompare = opponentCreature.stats.Compare(stats, creatureEffectRequirementType);
-        }
+        if (requireCreatureType)
+            requirementCreatureType.IsRequirementMet(selfCreature, opponentCreature);
 
-        if (creatureEffectTargetType == CreatureEffectTargetType.SelfToOpponent)
-        {
-            selfToOpponent = selfCreature.stats.Compare(opponentCreature.stats, creatureEffectRequirementType);
-        }
+        if (requireSubCreatureType)
+            requirementSubCreatureType.IsRequirementMet(selfCreature, opponentCreature);
 
-        return selfCompare && opponentCompare && selfToOpponent;
+        return requirementStatsMet && requirementCreatureTypeMet && requirementSubCreatureTypeMet;
     }
 }

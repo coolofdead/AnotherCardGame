@@ -17,24 +17,14 @@ MonoBehaviour:
   subCreatureTypePlant: 7
   subCreatureTypeWater: 0
   stats:
+    manaCost: 0
     power: 0
-    nbHit: 1
-    speed: 1
     shield: 0
   creatureName: Jean
   effectDescription: ?????????????
   artwork: {fileID: 21300000, guid: b32e6e7773fded3438ccc04d5b9dc754, type: 3}
   artworkPositionOffset: {x: 0, y: 0}
   artworkScale: {x: 1.2, y: 1.2}
-  hasAnEffect: 0
-  hasGlobalRequirement: 0
+  hasEffects: 0
   effect:
     Value: []
-  requirement:
-    creatureEffectTargetType: 0
-    creatureEffectRequirementType: 0
-    stats:
-      power: 0
-      nbHit: 0
-      speed: 1
-      shield: 0

@@ -8,11 +8,8 @@ public class CreatureSO : ScriptableObject
 {
     [Header("Creature Type")]
     public CreatureType creatureType;
-    // TODO : Refacto below
-    public SubCreatureType subCreatureType => creatureType == CreatureType.Fire ? (SubCreatureType)subCreatureTypeFire : 
-                                              creatureType == CreatureType.Plant ? (SubCreatureType)subCreatureTypePlant :
-                                              creatureType == CreatureType.Water ? (SubCreatureType)subCreatureTypeWater : 
-                                              default(SubCreatureType);
+    public SubCreatureType subCreatureType => SubCreatureTypeExtension.GetSubCreatureType(this);
+
     [ConditionalField("creatureType", false, CreatureType.Fire)] public SubCreatureTypeFire subCreatureTypeFire;
     [ConditionalField("creatureType", false, CreatureType.Plant)] public SubCreatureTypePlant subCreatureTypePlant;
     [ConditionalField("creatureType", false, CreatureType.Water)] public SubCreatureTypeWater subCreatureTypeWater;
@@ -28,15 +25,15 @@ public class CreatureSO : ScriptableObject
     public Vector2 artworkScale = Vector2.one;
 
     [Header("Creature Effect")]
-    public bool hasAnEffect;
-    public bool hasGlobalRequirement;
+    public bool hasEffects;
+    private bool hasGlobalRequirement;
 
-    [ConditionalField("hasAnEffect")] public CollectionWrapper<CreatureEffect> effect;
-    [ConditionalField("hasGlobalRequirement", false)] public CreatureEffectRequirement requirement;
+    [ConditionalField("hasEffects")] public CollectionWrapper<CreatureEffect> effect;
+    [ConditionalField("hasGlobalRequirement", false)] private CreatureEffectRequirement requirement;
 
     public bool HasAnEffectAndRequirementsAreMet(CreatureFightingUI selfCreature, CreatureFightingUI opponentCreature)
     {
-        return hasAnEffect && (hasGlobalRequirement == false || requirement.IsRequirementMet(selfCreature, opponentCreature));
+        return hasEffects && (hasGlobalRequirement == false || requirement.IsRequirementsMet(selfCreature, opponentCreature));
     }
 
     public void ActivateEffect(CreatureFightingUI selfCreature, CreatureFightingUI opponentCreature)
@@ -49,7 +46,7 @@ public class CreatureSO : ScriptableObject
                 continue;
             }
 
-            if (creatureEffect.hasRequirement == false || creatureEffect.requirement.IsRequirementMet(selfCreature, opponentCreature))
+            if (creatureEffect.hasRequirement == false || creatureEffect.requirements.IsRequirementsMet(selfCreature, opponentCreature))
             {
                 creatureEffect.Activate(selfCreature, opponentCreature);
             }

@@ -14,7 +14,7 @@ public class CreatureEffect
     public bool hasModulation;
     public bool hasDamage;
 
-    [ConditionalField("hasRequirement", false)] public CreatureEffectRequirement requirement;
+    [ConditionalField("hasRequirement", false)] public CreatureEffectRequirement requirements;
     [ConditionalField("hasModulation", false)] public CreatureEffectModulate modulation;
     [ConditionalField("hasDamage", false)] public CreatureEffectDealDamage damage;
 
@@ -42,7 +42,7 @@ public class CreatureEffect
 
     public void OnGameEvent(EventStruct gameEventData)
     {
-        if (hasRequirement == false || requirement.IsRequirementMet(gameEventData.playerCreature, gameEventData.opponentCreature))
+        if (hasRequirement == false || requirements.IsRequirementsMet(gameEventData.playerCreature, gameEventData.opponentCreature))
         {
             Activate(gameEventData.playerCreature, gameEventData.opponentCreature);
         }

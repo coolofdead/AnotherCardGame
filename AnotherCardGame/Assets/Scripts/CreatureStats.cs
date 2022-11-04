@@ -4,12 +4,10 @@ using System;
 [Serializable]
 public class CreatureStats
 {
+    [Range(0, 4)]
+    public int manaCost;
     [RangeEx(0, 10000, 500)]
     public int power;
-    [Range(0, 9)]
-    public int nbHit;
-    [Range(0, 9)]
-    public int speed;
     [RangeEx(0, 10000, 500)]
     public int shield;
 
@@ -30,66 +28,50 @@ public class CreatureStats
 
     public CreatureStats Clone()
     {
-        return new CreatureStats { power = this.power, nbHit = this.nbHit, speed = this.speed, shield = this.shield };
+        return new CreatureStats { power = this.power, shield = this.shield };
     }
 
     public static CreatureStats operator +(CreatureStats a, CreatureStats b)
     {
-        return new CreatureStats { power = a.power + b.power, nbHit = a.nbHit + b.nbHit, speed = a.speed + b.speed, shield = a.shield + b.shield };
+        return new CreatureStats { power = a.power + b.power, shield = a.shield + b.shield };
     }
 
     public static CreatureStats operator -(CreatureStats a, CreatureStats b)
     {
-        return new CreatureStats { power = a.power - b.power, nbHit = a.nbHit - b.nbHit, speed = a.speed - b.speed, shield = a.shield - b.shield };
+        return new CreatureStats { power = a.power - b.power, shield = a.shield - b.shield };
     }
 
     public static CreatureStats operator *(CreatureStats a, CreatureStats b)
     {
         b.power = b.power == 0 ? 1 : b.power;
-        b.nbHit = b.nbHit == 0 ? 1 : b.nbHit;
-        b.speed = b.speed == 0 ? 1 : b.speed;
         b.shield = b.shield == 0 ? 1 : b.shield;
-        return new CreatureStats { power = a.power * b.power, nbHit = a.nbHit * b.nbHit, speed = a.speed * b.speed, shield = a.shield * b.shield };
+        return new CreatureStats { power = a.power * b.power, shield = a.shield * b.shield };
     }
 
     public static CreatureStats operator /(CreatureStats a, CreatureStats b)
     {
         b.power = b.power == 0 ? 1 : b.power;
-        b.nbHit = b.nbHit == 0 ? 1 : b.nbHit;
-        b.speed = b.speed == 0 ? 1 : b.speed;
         b.shield = b.shield == 0 ? 1 : b.shield;
-        return new CreatureStats { power = a.power / b.power, nbHit = a.nbHit / b.nbHit, speed = a.speed / b.speed, shield = a.shield / b.shield };
+        return new CreatureStats { power = a.power / b.power, shield = a.shield / b.shield };
     }
 
     public static bool operator >(CreatureStats a, CreatureStats b)
     {
-        return (b.power == 0 || a.power > b.power)
-               && (b.nbHit == 0 || a.nbHit > b.nbHit)
-               && (b.speed == 0 || a.speed > b.speed)
-               && (b.shield == 0 || a.shield > b.shield);
+        return (b.power == 0 || a.power > b.power) && (b.shield == 0 || a.shield > b.shield);
     }
 
     public static bool operator <(CreatureStats a, CreatureStats b)
     {
-        return (b.power == 0 || a.power < b.power)
-               && (b.nbHit == 0 || a.nbHit < b.nbHit)
-               && (b.speed == 0 || a.speed < b.speed)
-               && (b.shield == 0 || a.shield < b.shield);
+        return (b.power == 0 || a.power < b.power) && (b.shield == 0 || a.shield < b.shield);
     }
 
     public static bool operator ==(CreatureStats a, CreatureStats b)
     {
-        return (b.power == 0 || a.power == b.power)
-               && (b.nbHit == 0 || a.nbHit == b.nbHit)
-               && (b.speed == 0 || a.speed == b.speed)
-               && (b.shield == 0 || a.shield == b.shield);
+        return (b.power == 0 || a.power == b.power) && (b.shield == 0 || a.shield == b.shield);
     }
 
     public static bool operator !=(CreatureStats a, CreatureStats b)
     {
-        return (b.power == 0 || a.power != b.power)
-               && (b.nbHit == 0 || a.nbHit != b.nbHit)
-               && (b.speed == 0 || a.speed != b.speed)
-               && (b.shield == 0 || a.shield != b.shield);
+        return (b.power == 0 || a.power != b.power) && (b.shield == 0 || a.shield != b.shield);
     }
 }

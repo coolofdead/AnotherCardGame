@@ -10,10 +10,7 @@ public class CreatureFightingUI : MonoBehaviour
     public Color fireFrameColor;
     public Color waterFrameColor;
 
-    public TextMeshProUGUI damageTMP;
     public TextMeshProUGUI powerTMP;
-    public TextMeshProUGUI nbHitTMP;
-    public TextMeshProUGUI speedTMP;
     public TextMeshProUGUI shieldTMP;
     public Image artworkImage;
     public Image frameImage;
@@ -53,8 +50,6 @@ public class CreatureFightingUI : MonoBehaviour
                 break;
         }
         powerTMP.text = stats.power.ToString();
-        nbHitTMP.text = stats.nbHit.ToString();
-        speedTMP.text = stats.speed.ToString();
         shieldTMP.text = stats.shield > 0 ? stats.shield.ToString() : "";
         artworkImage.sprite = creatureSO.artwork;
     }
@@ -70,7 +65,6 @@ public class CreatureFightingUI : MonoBehaviour
             return false;
 
         damage += damageLeft;
-        damageTMP.text = damage.ToString();
 
         return true;
     }
@@ -79,7 +73,6 @@ public class CreatureFightingUI : MonoBehaviour
     {
         damage = 0;
         stats.shield = 0;
-        damageTMP.text = "";
         shieldTMP.text = "";
     }
 }
