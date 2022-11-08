@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Playables;
 
 [CreateAssetMenu(fileName = "Creature", menuName = "Creature/New Creature", order = 1)]
 public class CreatureSO : ScriptableObject
@@ -47,4 +48,7 @@ public class CreatureSO : ScriptableObject
         { Effect.PowerModifier, new PowerPlusEffect() },
         { Effect.Shield, new ShieldEffect() },
     };
+
+    [Header("Creature Attack Animation")]
+    public CreatureAttackAnimationHandler attackAnimationPrefab;
 }

@@ -5,7 +5,7 @@ using System;
 
 public class DroppableAreaUI : MonoBehaviour
 {
-    public static Action<AreaType, AreaType, DroppableAreaUI, DragableUI> onElementMovedTo;
+    public static Action<AreaType, AreaType, DroppableAreaUI, DroppableAreaUI, DragableUI> onElementMovedTo;
     public static Action<AreaType, DroppableAreaUI, DragableUI> onElementPlaced;
 
     public enum AreaType { None, Battlefield, Hand }
@@ -67,12 +67,12 @@ public class DroppableAreaUI : MonoBehaviour
         }
     }
 
-    private void FreeArea(AreaType fromAreaType, DroppableAreaUI droppableAreaUI, DragableUI dragableUI)
+    private void FreeArea(AreaType toAreaType, DroppableAreaUI droppableAreaUI, DragableUI dragableUI)
     {
         if (ElemOnArea == dragableUI && droppableAreaUI != this)
         {
             ElemOnArea = null;
-            onElementMovedTo?.Invoke(fromAreaType, areaType, droppableAreaUI, dragableUI);
+            onElementMovedTo?.Invoke(areaType, toAreaType, this, droppableAreaUI, dragableUI);
         }
     }
 

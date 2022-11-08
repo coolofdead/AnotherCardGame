@@ -14,7 +14,7 @@ public class ManaManager : MonoBehaviour
         gameManager.player.onManaChanged += CheckManaCostRequired;
     }
 
-    private void OnCreatureMovedUpdateMana(DroppableAreaUI.AreaType fromArea, DroppableAreaUI.AreaType toArea, DroppableAreaUI droppableAreaUI, DragableUI dragableUI)
+    private void OnCreatureMovedUpdateMana(DroppableAreaUI.AreaType fromArea, DroppableAreaUI.AreaType toArea, DroppableAreaUI fromDroppableAreaUI, DroppableAreaUI toDroppableAreaUI, DragableUI dragableUI)
     {
         CreatureUI creatureUI = dragableUI.GetComponent<CreatureUI>();
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    public const float DELAY_TO_REVEAL = 2f;
+    public float DELAY_TO_REVEAL = 2f;
 
     public BattlefieldAreaManager battlefieldAreaManager;
 
@@ -15,16 +15,16 @@ public class TurnManager : MonoBehaviour
         DroppableAreaUI.onElementMovedTo += OnCreaturePlacedOnBattlefield;
     }
 
-    private void OnCreaturePlacedOnBattlefield(DroppableAreaUI.AreaType fromArea, DroppableAreaUI.AreaType toArea, DroppableAreaUI droppableAreaUI, DragableUI dragableUI)
+    private void OnCreaturePlacedOnBattlefield(DroppableAreaUI.AreaType fromArea, DroppableAreaUI.AreaType toArea, DroppableAreaUI fromDroppableAreaUI, DroppableAreaUI toDroppableAreaUI, DragableUI dragableUI)
     {
         if (fromArea == DroppableAreaUI.AreaType.Battlefield && toArea == DroppableAreaUI.AreaType.Hand)
         {
-            creatureUISummonedThisTurnByArea.Remove(droppableAreaUI);
+            creatureUISummonedThisTurnByArea.Remove(fromDroppableAreaUI);
         }
 
         if (fromArea == DroppableAreaUI.AreaType.Hand && toArea == DroppableAreaUI.AreaType.Battlefield)
         {
-            creatureUISummonedThisTurnByArea.Add(droppableAreaUI, dragableUI.GetComponent<CreatureUI>());
+            creatureUISummonedThisTurnByArea.Add(toDroppableAreaUI, dragableUI.GetComponent<CreatureUI>());
         }
     }
 
@@ -40,7 +40,7 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < BattlefieldAreaManager.MAX_FIELD_AREA; i++)
         {
             CreatureUI creatureUIToSummon;
-            if (creatureUISummonedThisTurnByArea.TryGetValue(battlefieldAreaManager.GetBattlefieldArea(true,  i), out creatureUIToSummon))
+            if (creatureUISummonedThisTurnByArea.TryGetValue(battlefieldAreaManager.GetBattlefieldArea(true, i), out creatureUIToSummon))
             {
                 creatureUIToSummon.Summon(DELAY_TO_REVEAL);
             }

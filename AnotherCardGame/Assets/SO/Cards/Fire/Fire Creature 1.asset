@@ -17,14 +17,16 @@ MonoBehaviour:
   subCreatureTypePlant: 2
   subCreatureTypeWater: 0
   stats:
-    manaCost: 1
-    power: 1000
-    shield: 1000
+    manaCost: 2
+    power: 2000
+    shield: 0
   creatureName: Flower Dancer
   effectDescription: +1000 Power
   artwork: {fileID: 21300000, guid: 28449c52eb301404cb246649d133ce27, type: 3}
   artworkPositionOffset: {x: 0, y: -10}
   artworkScale: {x: 1.7, y: 1.7}
-  battleArtworkPositionOffset: {x: 0, y: 0}
+  battleArtworkAnchoredPosition: {x: 0, y: 0}
+  battleArtworkScale: {x: 0, y: 0}
   flipArtworkOnBattle: 0
   effects: 1
+  attackAnimationPrefab: {fileID: 1009518145418458842, guid: 0faaa87c841dba943881401a65676408, type: 3}
