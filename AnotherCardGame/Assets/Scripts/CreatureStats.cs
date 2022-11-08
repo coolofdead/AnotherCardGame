@@ -28,7 +28,7 @@ public class CreatureStats
 
     public CreatureStats Clone()
     {
-        return new CreatureStats { power = this.power, shield = this.shield };
+        return new CreatureStats { manaCost = this.manaCost, power = this.power, shield = this.shield };
     }
 
     public static CreatureStats operator +(CreatureStats a, CreatureStats b)

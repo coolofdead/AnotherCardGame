@@ -8,8 +8,7 @@ public class CreatureEffectDealDamage
 {
     [RangeEx(0, 10000, 500)] public int damageAmount;
 
-    public void DealDamage(CreatureFightingUI target)
+    public void DealDamage(CreatureUI target)
     {
-        target.TakeDamage(damageAmount);
     }
 }

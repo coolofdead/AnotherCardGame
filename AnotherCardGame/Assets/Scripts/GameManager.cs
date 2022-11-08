@@ -4,53 +4,32 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
 {
-    private const int NB_FIGHT_ROUND = 3;
-
     [Header("Players")]
     public Player player;
     public Player opponent;
 
-    public List<int> playerCardActionSelected = new List<int>();
-
     [Header("UI")]
-    public CreatureFightingUI playerCreatureFighting;
-    public CreatureFightingUI opponentCreatureFighting;
-    public Transform actionCardsListTransform;
-    public Transform actionCardsSelectedTransform;
-    public TextMeshProUGUI cardActionDescriptionTMP;
-    public float scrollBarCardValue = 0.086f;
+    public GameObject waitingPanel;
     public GameObject startFightButton;
-    public TextMeshProUGUI scoreTMP;
-    public TextMeshProUGUI playerDeckTMP;
-    public TextMeshProUGUI opponnentDeckTMP;
-    public GameObject endScreenPanel;
-    public TextMeshProUGUI victoryTMP;
+    public TextMeshProUGUI creatureInHandDescriptionTMP;
 
-    private int currentFight = 0;
-    private int nbPlayerFightWon = 0;
-    private int nbOpponentFightWon = 0;
-
-    private void Awake()
-    {
-        CardActionUI.onCardActionSelect += PickCardAction;
-    }
+    [Header("Managers")]
+    public EnemyManager enemyManager;
+    public BattleManager battleManager;
+    public TurnManager turnManager;
+    public BattlefieldAreaManager battlefieldAreaManager;
 
     private void Start()
     {
         player.Init();
         opponent.Init();
 
-        SetupUI();
-        //SetupSupportCreaturesUI();
-        //DisplayCreatureSupportEffect(0);
-    }
-
-    public void LoadFightScene()
-    {
-        SceneManager.LoadScene("SampleScene");
+        // DEBUG
+        StartFight();
     }
 
     public void StartFight()
@@ -58,38 +37,77 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Fight());
     }
 
+    public void IsReady()
+    {
+        player.isReadyToStartRound = true;
+    }
+
     private IEnumerator Fight()
     {
-        for (int i = 0; i < NB_FIGHT_ROUND; i++)
+        print("wait for players");
+
+        // Wait for both players to be ready
+        yield return new WaitUntil(() => player.isReadyToStartRound && opponent.isReadyToStartRound);
+
+        print("players ready");
+
+        waitingPanel.SetActive(false);
+
+        enemyManager.Play();
+
+        yield return turnManager.RevealCreaturesSummonedThisTurn();
+
+        print("start battle");
+
+        // Battle
+        for (int i = 0; i < BattlefieldAreaManager.MAX_FIELD_AREA; i++)
         {
-            //CreatureFightingUI firstAttacker = playerCreatureFighting.stats.speed >= opponentCreatureFighting.stats.speed ? playerCreatureFighting : opponentCreatureFighting;
-            //CreatureFightingUI targetCreature = firstAttacker == playerCreatureFighting ? opponentCreatureFighting : playerCreatureFighting;
+            CreatureUI playerCreatureUI = battlefieldAreaManager.GetCreatureOnField(true, i);
+            CreatureUI opponentCreatureUI = battlefieldAreaManager.GetCreatureOnField(false, i);
 
-            //GameEventManager.TriggerEvent(EffectActivationTimeType.StartRound, new EventStruct());
+            if (playerCreatureUI == null || opponentCreatureUI == null)
+            {
+                // Add logic here
+                print("direct damage from one side");
+                continue;
+            }
 
-            //// First attacker attacks
-            //for (int attack = 0; attack < firstAttacker.stats.nbHit; attack++)
-            //{
-            //    bool hasTakenDamage = targetCreature.TakeDamage(firstAttacker.stats.power);
-            //    if (hasTakenDamage)
-            //    {
-            //        EffectActivationTimeType damageEventType = firstAttacker == playerCreatureFighting ? EffectActivationTimeType.OnDamageDeal : EffectActivationTimeType.OnDamageReceived;
-            //        GameEventManager.TriggerEvent(damageEventType, new EventStruct());
-            //    }
-            //}
-
-            yield return new WaitForSeconds(2);
-
-            //// Target attacks
-            //for (int attack = 0; attack < targetCreature.stats.nbHit; attack++)
-            //{
-            //    firstAttacker.TakeDamage(targetCreature.stats.power);
-            //}
-
-            //yield return new WaitForSeconds(5);
-
-            //GameEventManager.TriggerEvent(EffectActivationTimeType.EndRound, new EventStruct());
+            yield return battleManager.Fight(playerCreatureUI, opponentCreatureUI);
         }
+
+        // Draw to fill hand
+
+        // Move one round forward
+
+        // Loop
+
+
+        //CreatureFightingUI firstAttacker = playerCreatureFighting.stats.speed >= opponentCreatureFighting.stats.speed ? playerCreatureFighting : opponentCreatureFighting;
+        //CreatureFightingUI targetCreature = firstAttacker == playerCreatureFighting ? opponentCreatureFighting : playerCreatureFighting;
+
+        //GameEventManager.TriggerEvent(EffectActivationTimeType.StartRound, new EventStruct());
+
+        //// First attacker attacks
+        //for (int attack = 0; attack < firstAttacker.stats.nbHit; attack++)
+        //{
+        //    bool hasTakenDamage = targetCreature.TakeDamage(firstAttacker.stats.power);
+        //    if (hasTakenDamage)
+        //    {
+        //        EffectActivationTimeType damageEventType = firstAttacker == playerCreatureFighting ? EffectActivationTimeType.OnDamageDeal : EffectActivationTimeType.OnDamageReceived;
+        //        GameEventManager.TriggerEvent(damageEventType, new EventStruct());
+        //    }
+        //}
+
+        //// Target attacks
+        //for (int attack = 0; attack < targetCreature.stats.nbHit; attack++)
+        //{
+        //    firstAttacker.TakeDamage(targetCreature.stats.power);
+        //}
+
+        //yield return new WaitForSeconds(5);
+
+        //GameEventManager.TriggerEvent(EffectActivationTimeType.EndRound, new EventStruct());
+
 
         //CreatureFightingUI winnerCreature = playerCreatureFighting.damage < opponentCreatureFighting.damage ? playerCreatureFighting : opponentCreatureFighting;
         //winnerCreature = playerCreatureFighting.damage == opponentCreatureFighting.damage ? null : winnerCreature;
@@ -106,7 +124,7 @@ public class GameManager : MonoBehaviour
         //currentFight++;
         //SetupNextFight();
 
-        GameEventManager.TriggerEvent(EffectActivationTimeType.OnEndFight, new EventStruct());
+        //GameEventManager.TriggerEvent(EffectActivationTimeType.OnEndFight, new EventStruct());
 
         //playerDeckTMP.text = (player.deck.creatures.Length - currentFight).ToString();
         //opponnentDeckTMP.text = (player.deck.creatures.Length - currentFight).ToString();
@@ -131,95 +149,9 @@ public class GameManager : MonoBehaviour
         //}
     }
 
-    private void SetupUI()
-    {
-
-    }
-
-    private void SetupNextFight()
-    {
-        //playerCreatureFighting.SetCreatureSO(player.deck.creatures[currentFight]);
-        //opponentCreatureFighting.SetCreatureSO(opponent.deck.creatures[currentFight]);
-        
-    }
-
-    private void SetupSupportCreaturesUI()
-    {
-        //CardActionUI[] cardActionUIs = actionCardsListTransform.GetComponentsInChildren<CardActionUI>();
-        //for (int i = 0; i < cardActionUIs.Length; i++)
-        //{
-        //    cardActionUIs[i].artworkImage.sprite = player.deck.creatures[i].artwork;
-        //    cardActionUIs[i].cardActionIndex = i;
-
-        //    if (player.deck.creatures[i] == playerCreatureFighting)
-        //        cardActionUIs[i].Hide();
-        //}
-    }
-
-    private void PickCardAction(CardActionUI cardActionSelected)
-    {
-        //if (playerCardActionSelected.Count >= MAX_CARD_ACTION_TO_SELECT)
-        //    return;
-
-        //if (player.deck.creatures[cardActionSelected.cardActionIndex].creatureType != playerCreatureFighting.creatureSO.creatureType)
-        //    return;
-
-        //playerCardActionSelected.Add(cardActionSelected.cardActionIndex);
-        //cardActionSelected.Hide();
-
-        //actionCardsSelectedTransform.GetChild(playerCardActionSelected.Count - 1).GetChild(1).gameObject.SetActive(true);
-
-        //Sprite artworkCardActionSelected = player.deck.creatures[cardActionSelected.cardActionIndex].artwork;
-        //Image artworkCardActionUISelected = actionCardsSelectedTransform.GetChild(playerCardActionSelected.Count - 1).GetChild(1).GetChild(0).GetComponent<Image>();
-        //artworkCardActionUISelected.sprite = artworkCardActionSelected;
-
-        //if (playerCardActionSelected.Count == MAX_CARD_ACTION_TO_SELECT)
-        //    startFightButton.SetActive(true);
-    }
-
-    public void RemoveCardAction(int cardActionIndex)
-    {
-        //if (cardActionIndex >= playerCardActionSelected.Count)
-        //    return;
-
-        //int cardActionUIIndex = playerCardActionSelected[cardActionIndex];
-        //CardActionUI cardActionUIToEnable = actionCardsListTransform.GetChild(cardActionUIIndex).GetComponent<CardActionUI>();
-        //cardActionUIToEnable.Show();
-
-        //playerCardActionSelected.RemoveAt(cardActionIndex);
-
-        //for (int i = 0; i < 3; i++)
-        //{
-        //    actionCardsSelectedTransform.GetChild(i).GetChild(1).gameObject.SetActive(i < playerCardActionSelected.Count);
-
-        //    if (i >= playerCardActionSelected.Count)
-        //        continue;
-
-        //    Sprite artworkCardActionSelected = player.deck.creatures[playerCardActionSelected[i]].artwork;
-        //    Image artworkCardActionUISelected = actionCardsSelectedTransform.GetChild(i).GetChild(1).GetChild(0).GetComponent<Image>();
-        //    artworkCardActionUISelected.sprite = artworkCardActionSelected;
-        //}
-
-        //startFightButton.SetActive(playerCardActionSelected.Count == MAX_CARD_ACTION_TO_SELECT);
-    }
-
-    public void OnCardActionScroll(Scrollbar scrollbar)
-    {
-        int cardActionIndexHovering = (int)(scrollbar.value / scrollBarCardValue);
-
-        if (cardActionIndexHovering < 0)
-            return;
-
-        DisplayCreatureSupportEffect(cardActionIndexHovering);
-    }
 
     private void DisplayCreatureSupportEffect(int creatureSupportIndex)
     {
         //cardActionDescriptionTMP.text = player.deck.creatures[creatureSupportIndex].effectDescription;
-    }
-
-    private void OnDestroy()
-    {
-        CardActionUI.onCardActionSelect -= PickCardAction;
     }
 }

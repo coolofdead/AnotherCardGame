@@ -12,7 +12,7 @@ public class CreatureEffectRequirement
     [ConditionalField("requireCreatureType", false)] public CreatureEffectRequirementCreatureType requirementCreatureType;
     [ConditionalField("requireSubCreatureType", false)] public CreatureEffectRequirementSubCreatureType requirementSubCreatureType;
 
-    public bool IsRequirementsMet(CreatureFightingUI selfCreature, CreatureFightingUI opponentCreature)
+    public bool IsRequirementsMet(CreatureUI selfCreature, CreatureUI opponentCreature)
     {
         bool requirementStatsMet = requireStats;
         bool requirementCreatureTypeMet = requireCreatureType;

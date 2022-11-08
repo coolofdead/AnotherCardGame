@@ -10,7 +10,7 @@ public class CreatureEffectRequirementCreatureType
 
     public CreatureType creatureFightingTypeRequired;
 
-    public bool IsRequirementMet(CreatureFightingUI selfCreature, CreatureFightingUI opponentCreature)
+    public bool IsRequirementMet(CreatureUI selfCreature, CreatureUI opponentCreature)
     {
         bool selfCompare = true;
         bool opponentCompare = true;

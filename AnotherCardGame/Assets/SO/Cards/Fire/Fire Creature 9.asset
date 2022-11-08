@@ -17,52 +17,14 @@ MonoBehaviour:
   subCreatureTypePlant: 2
   subCreatureTypeWater: 0
   stats:
-    power: 6500
-    nbHit: 1
-    speed: 5
-    shield: 3000
+    manaCost: 1
+    power: 1000
+    shield: 1000
   creatureName: Runick Long Blade
   effectDescription: Nb Hit > 2 ; Opp -3000 Power and -1 Nb Hit
   artwork: {fileID: 21300000, guid: 17f7981463eeb5c4287305266b02bb8f, type: 3}
   artworkPositionOffset: {x: 0, y: -10}
   artworkScale: {x: 1.7, y: 1.7}
-  hasAnEffect: 1
-  hasGlobalRequirement: 0
-  effect:
-    Value:
-    - target: 1
-      activationTime: 0
-      hasRequirement: 1
-      hasModulation: 1
-      hasDamage: 0
-      requirement:
-        creatureEffectTargetType: 0
-        creatureEffectRequirementType: 0
-        stats:
-          power: 0
-          nbHit: 2
-          speed: 0
-          shield: 0
-      modulation:
-        shouldModulatePower: 1
-        powerModulationType: 1
-        powerAmount: 3000
-        shouldModulateNbHit: 0
-        nbHitModulationType: 0
-        nbHitAmount: 0
-        shouldModulateSpeed: 1
-        speedModulationType: 1
-        speedAmount: 1
-        shouldModulateShield: 0
-        shieldModulationType: 0
-        shieldAmount: 0
-      damage:
-        damageAmount: 6000
-  requirement:
-    creatureEffectTargetType: 0
-    creatureEffectRequirementType: 0
-    stats:
-      power: 0
-      nbHit: 0
-      speed: 0
-      shield: 0
+  battleArtworkPositionOffset: {x: 0, y: 0}
+  flipArtworkOnBattle: 0
+  effects: 1

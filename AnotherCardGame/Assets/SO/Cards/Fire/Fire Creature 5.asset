@@ -17,52 +17,14 @@ MonoBehaviour:
   subCreatureTypePlant: 2
   subCreatureTypeWater: 0
   stats:
-    power: 4000
-    nbHit: 1
-    speed: 1
-    shield: 0
+    manaCost: 1
+    power: 1000
+    shield: 1000
   creatureName: Hornet beast warrior
   effectDescription: +500 Power and +1 Speed / Turn
   artwork: {fileID: 21300000, guid: ba69f50d8485e6a4390b2dd19bf39557, type: 3}
   artworkPositionOffset: {x: 0, y: -10}
   artworkScale: {x: 1.7, y: 1.7}
-  hasAnEffect: 1
-  hasGlobalRequirement: 0
-  effect:
-    Value:
-    - target: 0
-      activationTime: 2
-      hasRequirement: 0
-      hasModulation: 1
-      hasDamage: 0
-      requirement:
-        creatureEffectTargetType: 0
-        creatureEffectRequirementType: 0
-        stats:
-          power: 1000
-          nbHit: 0
-          speed: 6
-          shield: 0
-      modulation:
-        shouldModulatePower: 1
-        powerModulationType: 0
-        powerAmount: 500
-        shouldModulateNbHit: 0
-        nbHitModulationType: 0
-        nbHitAmount: 0
-        shouldModulateSpeed: 1
-        speedModulationType: 1
-        speedAmount: 1
-        shouldModulateShield: 0
-        shieldModulationType: 0
-        shieldAmount: 0
-      damage:
-        damageAmount: 6000
-  requirement:
-    creatureEffectTargetType: 0
-    creatureEffectRequirementType: 0
-    stats:
-      power: 0
-      nbHit: 0
-      speed: 0
-      shield: 0
+  battleArtworkPositionOffset: {x: 0, y: 0}
+  flipArtworkOnBattle: 0
+  effects: 8

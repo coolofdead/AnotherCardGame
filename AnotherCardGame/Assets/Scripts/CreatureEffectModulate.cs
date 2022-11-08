@@ -13,7 +13,7 @@ public class CreatureEffectModulate
     [ConditionalField("shouldModulateShield", false)] public ModulationType shieldModulationType;
     [ConditionalField("shouldModulateShield", false)] public int shieldAmount;
 
-    public void Modulate(CreatureFightingUI playerCreature, CreatureFightingUI opponentCreature, CreatureEffectTargetType target)
+    public void Modulate(CreatureUI playerCreature, CreatureUI opponentCreature, CreatureEffectTargetType target)
     {
         EffectActivationTimeType statsModifiedEventType = target == CreatureEffectTargetType.Self || target == CreatureEffectTargetType.Both ?
                                                                     EffectActivationTimeType.OnSelfStatModified : EffectActivationTimeType.OnOpponentStatModified;
@@ -38,7 +38,7 @@ public class CreatureEffectModulate
         }
     }
 
-    private void ModulateStats(CreatureFightingUI targetCreature, CreatureStats statsToModulate)
+    private void ModulateStats(CreatureUI targetCreature, CreatureStats statsToModulate)
     {
         switch (powerModulationType)
         {

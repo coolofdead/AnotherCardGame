@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 [Serializable]
 public class Deck
@@ -17,8 +18,7 @@ public class Deck
 
     public void Shuffle()
     {
-        System.Random random = new System.Random();
-        creatures.Sort((x, y) => random.Next());
+        creatures = creatures.Randomize().ToList();
     }
 
     public CreatureSO Draw()

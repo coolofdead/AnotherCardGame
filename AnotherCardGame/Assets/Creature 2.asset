@@ -25,6 +25,4 @@ MonoBehaviour:
   artwork: {fileID: 21300000, guid: b32e6e7773fded3438ccc04d5b9dc754, type: 3}
   artworkPositionOffset: {x: 0, y: 0}
   artworkScale: {x: 1.2, y: 1.2}
-  hasEffects: 0
-  effect:
-    Value: []
+  effects: 3

@@ -17,52 +17,14 @@ MonoBehaviour:
   subCreatureTypePlant: 2
   subCreatureTypeWater: 0
   stats:
-    power: 2000
-    nbHit: 1
-    speed: 2
-    shield: 4000
+    manaCost: 3
+    power: 3000
+    shield: 3000
   creatureName: Shield Breaker
   effectDescription: Opp Shield > 3000 ; +3000 Power
   artwork: {fileID: 21300000, guid: f4df26cb77f4a39438bad7d5f4f925c3, type: 3}
   artworkPositionOffset: {x: 0, y: -10}
   artworkScale: {x: 1.7, y: 1.7}
-  hasAnEffect: 1
-  hasGlobalRequirement: 0
-  effect:
-    Value:
-    - target: 0
-      activationTime: 0
-      hasRequirement: 1
-      hasModulation: 1
-      hasDamage: 0
-      requirement:
-        creatureEffectTargetType: 1
-        creatureEffectRequirementType: 0
-        stats:
-          power: 0
-          nbHit: 0
-          speed: 0
-          shield: 3000
-      modulation:
-        shouldModulatePower: 1
-        powerModulationType: 0
-        powerAmount: 3000
-        shouldModulateNbHit: 0
-        nbHitModulationType: 0
-        nbHitAmount: 0
-        shouldModulateSpeed: 0
-        speedModulationType: 0
-        speedAmount: 0
-        shouldModulateShield: 0
-        shieldModulationType: 0
-        shieldAmount: 0
-      damage:
-        damageAmount: 6000
-  requirement:
-    creatureEffectTargetType: 0
-    creatureEffectRequirementType: 0
-    stats:
-      power: 0
-      nbHit: 0
-      speed: 0
-      shield: 0
+  battleArtworkPositionOffset: {x: 0, y: 0}
+  flipArtworkOnBattle: 0
+  effects: 32

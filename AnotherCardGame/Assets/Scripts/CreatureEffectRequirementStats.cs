@@ -11,7 +11,7 @@ public class CreatureEffectRequirementStats
 
     public CreatureStats stats;
 
-    public bool IsRequirementMet(CreatureFightingUI selfCreature, CreatureFightingUI opponentCreature)
+    public bool IsRequirementMet(CreatureUI selfCreature, CreatureUI opponentCreature)
     {
         bool selfCompare = true;
         bool opponentCompare = true;

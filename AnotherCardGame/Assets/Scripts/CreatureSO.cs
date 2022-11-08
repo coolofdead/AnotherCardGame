@@ -1,6 +1,7 @@
 using MyBox;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Creature", menuName = "Creature/New Creature", order = 1)]
@@ -21,35 +22,29 @@ public class CreatureSO : ScriptableObject
     public string creatureName;
     public string effectDescription;
     public Sprite artwork;
+
+    [Header("UI Params")]
     public Vector2 artworkPositionOffset = Vector2.zero;
     public Vector2 artworkScale = Vector2.one;
 
+    public Vector2 battleArtworkAnchoredPosition = Vector2.zero; // Apply to anchored position
+    public Vector2 battleArtworkScale = Vector2.zero;
+    [Tooltip("if wrong orientation on battle")] public bool flipArtworkOnBattle;
+
     [Header("Creature Effect")]
-    public bool hasEffects;
-    private bool hasGlobalRequirement;
+    public Effect effects = Effect.None;
+    public AbstractCreatureEffect[] creatureEffects => creatureEffectsByEffect.Where((keyValuePair) => effects.HasFlag(keyValuePair.Key))
+                                                                               .ToDictionary(x => x.Key, x => x.Value)
+                                                                               .Values.ToArray();
 
-    [ConditionalField("hasEffects")] public CollectionWrapper<CreatureEffect> effect;
-    [ConditionalField("hasGlobalRequirement", false)] private CreatureEffectRequirement requirement;
-
-    public bool HasAnEffectAndRequirementsAreMet(CreatureFightingUI selfCreature, CreatureFightingUI opponentCreature)
+    private static Dictionary<Effect, AbstractCreatureEffect> creatureEffectsByEffect = new Dictionary<Effect, AbstractCreatureEffect>()
     {
-        return hasEffects && (hasGlobalRequirement == false || requirement.IsRequirementsMet(selfCreature, opponentCreature));
-    }
-
-    public void ActivateEffect(CreatureFightingUI selfCreature, CreatureFightingUI opponentCreature)
-    {
-        foreach (CreatureEffect creatureEffect in effect.Value)
-        {
-            if (creatureEffect.activationTime != EffectActivationTimeType.Default)
-            {
-                creatureEffect.RegisterActivation();
-                continue;
-            }
-
-            if (creatureEffect.hasRequirement == false || creatureEffect.requirements.IsRequirementsMet(selfCreature, opponentCreature))
-            {
-                creatureEffect.Activate(selfCreature, opponentCreature);
-            }
-        }
-    }
+        { Effect.Redraw, new RedrawEffect() },
+        { Effect.First_Attacker, new FirstAttackerEffect() },
+        { Effect.Blocker, new BlockerEffect() },
+        { Effect.Celerity, new CelerityEffect() },
+        { Effect.Defender, new DefenderEffect() },
+        { Effect.PowerModifier, new PowerPlusEffect() },
+        { Effect.Shield, new ShieldEffect() },
+    };
 }

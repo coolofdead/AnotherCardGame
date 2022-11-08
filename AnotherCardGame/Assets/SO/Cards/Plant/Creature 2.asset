@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c28786551d8b2144b10c56b8af700b0, type: 3}
+  m_Name: Creature 2
+  m_EditorClassIdentifier: 
+  creatureType: 2
+  subCreatureTypeFire: 0
+  subCreatureTypePlant: 10
+  subCreatureTypeWater: 0
+  stats:
+    manaCost: 2
+    power: 1000
+    shield: 0
+  creatureName: 2
+  effectDescription: ?????????????
+  artwork: {fileID: 21300000, guid: af2567d25488f684f8afcfad06de0ed5, type: 3}
+  artworkPositionOffset: {x: 0, y: 0}
+  artworkScale: {x: 1.4, y: 1.4}
+  battleArtworkPositionOffset: {x: 0, y: 0}
+  flipArtworkOnBattle: 0
+  effects: 80
