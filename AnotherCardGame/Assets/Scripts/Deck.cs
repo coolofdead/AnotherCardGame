@@ -13,6 +13,8 @@ public class Deck
 
     public void LoadDeck(string recipe)
     {
+        Shuffle();
+
         throw new NotImplementedException();
     }
 

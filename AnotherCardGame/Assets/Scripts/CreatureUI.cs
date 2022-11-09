@@ -12,7 +12,7 @@ public class CreatureUI : MonoBehaviour
 
     public Transform manaCostTransform;
     public Transform effectsIconTransform;
-    public Image effectIconPrefab;
+    public GameObject effectIconPrefab;
     public TextMeshProUGUI powerTMP;
     public TextMeshProUGUI shieldTMP;
     public Image artworkImage;
@@ -26,11 +26,15 @@ public class CreatureUI : MonoBehaviour
     public GameObject plantCreatureTypeLogo;
     private GameObject creatureTypeLogo;
     public GameObject contentParent;
+    public Image fireDeathAnimation;
+    public Image plantDeathAnimation;
+    public Image waterDeathAnimation;
 
     public DragableUI dragableUI;
 
     [HideInInspector] public CreatureSO creatureSO;
     [HideInInspector] public CreatureStats stats;
+    [HideInInspector] public CreatureUI slayerCreatureUI;
 
     private bool hasBeenSummoned;
 
@@ -70,8 +74,8 @@ public class CreatureUI : MonoBehaviour
 
         foreach (AbstractCreatureEffect creatureEffect in creatureSO.creatureEffects)
         {
-            Image effectIconGo = Instantiate(effectIconPrefab, effectsIconTransform);
-            effectIconGo.sprite = creatureEffect.IconSprite;
+            GameObject effectIconGo = Instantiate(effectIconPrefab, effectsIconTransform);
+            effectIconGo.transform.GetChild(1).GetComponent<Image>().sprite = creatureEffect.IconSprite;
         }
 
         for (int i = 0; i < manaCostTransform.childCount; i++)
@@ -111,5 +115,38 @@ public class CreatureUI : MonoBehaviour
         creatureTypeLogo.SetActive(false);
         frameParent.SetActive(true);
         contentParent.SetActive(true);
+    }
+
+    public void ShowDeath()
+    {
+        Image deathEffectImage = null;
+        if (slayerCreatureUI.creatureSO.creatureType == CreatureType.Fire)
+            deathEffectImage = fireDeathAnimation;
+        if (slayerCreatureUI.creatureSO.creatureType == CreatureType.Plant)
+            deathEffectImage = plantDeathAnimation;
+        if (slayerCreatureUI.creatureSO.creatureType == CreatureType.Water)
+            deathEffectImage = waterDeathAnimation;
+
+        StartCoroutine(PlayDeathAnimation(deathEffectImage));
+    }
+
+    private IEnumerator PlayDeathAnimation(Image effectImage)
+    {
+        effectImage.gameObject.SetActive(true);
+
+        float timeOfAnimation = 4f;
+        float currentTime = 0f;
+        Color targetColor = effectImage.color;
+
+        while (currentTime < timeOfAnimation)
+        {
+            currentTime += Time.deltaTime;
+
+            effectImage.color = Color.Lerp(Color.white, targetColor, currentTime / timeOfAnimation);
+
+            yield return null;
+        }
+
+        Destroy(gameObject);
     }
 }

@@ -6,7 +6,7 @@ public class CreatureStats
 {
     [Range(0, 4)]
     public int manaCost;
-    [RangeEx(0, 10000, 500)]
+    [RangeEx(0, 14000, 500)]
     public int power;
     [RangeEx(0, 10000, 500)]
     public int shield;

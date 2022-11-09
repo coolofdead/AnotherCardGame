@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1398863083}
   - component: {fileID: 1398863086}
   m_Layer: 5
-  m_Name: BattlingAnnounceImage
+  m_Name: BattleAnnounceImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ Animator:
   m_GameObject: {fileID: 1398863081}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 55669206fb280ea498e68cd358f5be8a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9149e8dd903bb194aad68b73ad2c781b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -273,10 +273,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ab9d9a7bb33ce4591326b1a28539bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaType: 0
-  isEnable: 0
+  areaType: 1
+  isEnable: 1
   outlineFeedback: {fileID: 6364709469386076067}
   cardHandler: {fileID: 7171769964336432105}
+  battleAnnounce: {fileID: 1398863081}
 --- !u!1 &6364709469386076067
 GameObject:
   m_ObjectHideFlags: 0

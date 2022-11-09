@@ -12,6 +12,7 @@ public class CreatureBattlingUI : MonoBehaviour
     public TextMeshProUGUI creaturePowerTMP;
     public TextMeshProUGUI creatureShieldTMP;
 
+    public GameObject playerFightingParent;
     public Transform attackAnimationParent;
 
     public PlayableDirector shieldDefenseTimeline;
@@ -23,6 +24,12 @@ public class CreatureBattlingUI : MonoBehaviour
     public void SetCreature(CreatureUI creatureUI, bool flipArtwork = false)
     {
         DoneDoingAnimations = true;
+
+        playerFightingParent.SetActive(creatureUI == null);
+        creatureNameTMP.text = "";
+        creaturePowerTMP.text = "";
+        if (creatureUI == null) 
+            return;
 
         CreatureUI = creatureUI;
         artwork.sprite = creatureUI.creatureSO.artwork;

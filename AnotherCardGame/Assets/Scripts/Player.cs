@@ -9,24 +9,33 @@ public class Player
     public const int MAX_MANA = 4;
 
     public Action<int> onManaChanged;
+    public Action<Player> onDamageReceived;
 
     public Deck deck = new Deck();
     public Hand hand = new Hand();
     public int mana = MAX_MANA;
 
     public bool isReadyToStartRound = false;
-    public int damageCounter;
+    public int DamageCounter { get; protected set; }
 
-    public void Init()
+    public void FillHandAndResetMana()
     {
-        // deck.Load();
         deck.Shuffle();
-        for (int i = 0; i < Hand.MAX_CARD_IN_HAND; i++)
+
+        mana = MAX_MANA;
+
+        FillHand();
+    }
+
+    private void FillHand()
+    {
+        while (hand.CurrentCardsInHand < Hand.MAX_CARD_IN_HAND)
         {
             hand.AddCardToHand(deck.Draw());
         }
     }
-
+    
+    public void RefundManaCost(int cost) => PayManaCost(-cost);
     public void PayManaCost(int cost)
     {
         mana -= cost;
@@ -34,8 +43,12 @@ public class Player
         onManaChanged?.Invoke(mana);
     }
 
-    public void RefundManaCost(int cost)
+    public void ReceiveDamage(int amount)
     {
-        PayManaCost(-cost);
+        if (amount == 0) return;
+
+        DamageCounter += amount;
+
+        onDamageReceived?.Invoke(this);
     }
 }

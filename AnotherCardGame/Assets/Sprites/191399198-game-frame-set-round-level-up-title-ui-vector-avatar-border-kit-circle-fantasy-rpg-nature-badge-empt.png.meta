@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d8a743efdb61fe847b95daa753c20261
+guid: f725464cd6afe3746a0241784c486205
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -116,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 2pngegg_0
+      name: 191399198-game-frame-set-round-level-up-title-ui-vector-avatar-border-kit-circle-fantasy-rpg-nature-badge-empt_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 318
-        height: 8000
+        x: 6
+        y: 232
+        width: 231
+        height: 231
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,20 +130,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8f68d3440637cc42a07ac2665fa1ceb
-      internalID: 853780318
+      spriteID: 311eb41e4471c914e8f68ad6c7775a0a
+      internalID: -1093984455
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2pngegg_1
+      name: 191399198-game-frame-set-round-level-up-title-ui-vector-avatar-border-kit-circle-fantasy-rpg-nature-badge-empt_3
       rect:
         serializedVersion: 2
-        x: 5332
+        x: 21
         y: 0
-        width: 318
-        height: 7991
+        width: 210
+        height: 181
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,8 +151,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22d225df22c3d11429183fc93446d66a
-      internalID: -863157663
+      spriteID: 8f9c6d4d48192f541bf52624e883cde4
+      internalID: -354955721
       vertices: []
       indices: 
       edges: []
@@ -168,8 +168,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      2pngegg_0: 853780318
-      2pngegg_1: -863157663
+      191399198-game-frame-set-round-level-up-title-ui-vector-avatar-border-kit-circle-fantasy-rpg-nature-badge-empt_0: -1093984455
+      191399198-game-frame-set-round-level-up-title-ui-vector-avatar-border-kit-circle-fantasy-rpg-nature-badge-empt_3: -354955721
+      191399198-game-frame-set-round-level-up-title-ui-vector-avatar-border-kit-circle-fantasy-rpg-nature-badge-empt_1: -1650105165
+      191399198-game-frame-set-round-level-up-title-ui-vector-avatar-border-kit-circle-fantasy-rpg-nature-badge-empt_2: -2079125646
+      191399198-game-frame-set-round-level-up-title-ui-vector-avatar-border-kit-circle-fantasy-rpg-nature-badge-empt_4: 907200670
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

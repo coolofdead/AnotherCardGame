@@ -12,12 +12,15 @@ public class DroppableAreaUI : MonoBehaviour
     public AreaType areaType = AreaType.None;
 
     public bool isEnable;
+    public bool IsAvailable => ElemOnArea == null;
 
     public GameObject outlineFeedback;
     public Transform cardHandler;
 
     private bool isHovering;
     public DragableUI ElemOnArea { get; private set; }
+
+    public GameObject battleAnnounce;
 
     private void Awake()
     {

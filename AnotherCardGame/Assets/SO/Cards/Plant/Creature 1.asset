@@ -17,9 +17,9 @@ MonoBehaviour:
   subCreatureTypePlant: 10
   subCreatureTypeWater: 0
   stats:
-    manaCost: 2
-    power: 3000
-    shield: 3000
+    manaCost: 4
+    power: 8000
+    shield: 0
   creatureName: 1
   effectDescription: ?????????????
   artwork: {fileID: 21300000, guid: 315674bb2ca18694987817bcdc3bf1a7, type: 3}

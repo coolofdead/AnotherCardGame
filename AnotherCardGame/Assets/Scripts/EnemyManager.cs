@@ -6,37 +6,45 @@ public class EnemyManager : MonoBehaviour
 {
     public GameManager gameManager;
     public TurnManager turnManager;
+    public BattlefieldAreaManager battlefieldAreaManager;
 
     public Transform battlefieldParent;
     public CreatureUI creatureUIPrefab;
 
     public void Play()
     {
-        print("enemy is playing");
-
         int currentMana = Player.MAX_MANA;
 
-        DroppableAreaUI[] droppableAreaUIs = battlefieldParent.GetComponentsInChildren<DroppableAreaUI>();
-
-        // Bot choose creature logic
-        List<CreatureSO> creaturesToSummon = new List<CreatureSO>();
-        foreach (CreatureSO creatureSO in gameManager.opponent.hand)
+        List<DroppableAreaUI> availableBattlefieldAreas = new List<DroppableAreaUI>();
+        for (int i = 0; i < BattlefieldAreaManager.MAX_FIELD_AREA; i++)
         {
-            if (creatureSO.stats.manaCost <= currentMana && creaturesToSummon.Count < 3)
+            DroppableAreaUI droppableAreaUI = battlefieldAreaManager.GetBattlefieldArea(false, i);
+            if (droppableAreaUI.IsAvailable)
             {
-                creaturesToSummon.Add(creatureSO);
-                currentMana -= creatureSO.stats.manaCost;
+                availableBattlefieldAreas.Add(droppableAreaUI);
             }
         }
 
-        // Bot summons logic
-        for (int i = 0; i < creaturesToSummon.Count; i++)
+        // Bot choose creature logic
+        foreach (CreatureSO creatureSO in gameManager.opponent.hand)
         {
-            CreatureUI creatureUI = Instantiate(creatureUIPrefab);
-            creatureUI.SetCreatureSO(creaturesToSummon[i]);
+            if (creatureSO.stats.manaCost <= currentMana && availableBattlefieldAreas.Count > 0)
+            {
+                currentMana -= creatureSO.stats.manaCost;
 
-            droppableAreaUIs[i].PlaceCard(creatureUI.dragableUI, true);
-            turnManager.EnemyPlayCreature(droppableAreaUIs[i], creatureUI);
+                SummonAt(creatureSO, availableBattlefieldAreas[0]);
+
+                availableBattlefieldAreas.RemoveAt(0);
+            }
         }
+    }
+
+    private void SummonAt(CreatureSO creatureSO, DroppableAreaUI droppableAreaUI)
+    {
+        CreatureUI creatureUI = Instantiate(creatureUIPrefab);
+        creatureUI.SetCreatureSO(creatureSO);
+
+        droppableAreaUI.PlaceCard(creatureUI.dragableUI, true);
+        turnManager.EnemyPlayCreature(droppableAreaUI, creatureUI);
     }
 }

@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    public float DELAY_TO_REVEAL = 2f;
+    public const float DELAY_TO_REVEAL = 2f;
+    public const int TOTAL_ROUND = 3;
 
     public BattlefieldAreaManager battlefieldAreaManager;
 
+    public Transform roundsParent;
+
     private Dictionary<DroppableAreaUI, CreatureUI> creatureUISummonedThisTurnByArea = new Dictionary<DroppableAreaUI, CreatureUI>();
+
+    public int Round { get; private set; }
 
     private void Awake()
     {
@@ -64,6 +69,13 @@ public class TurnManager : MonoBehaviour
     public void EnemyPlayCreature(DroppableAreaUI droppableAreaUI, CreatureUI creatureUI)
     {
         creatureUISummonedThisTurnByArea.Add(droppableAreaUI, creatureUI);
+    }
+
+    public void MoveToNextRound()
+    {
+        Round++;
+
+        roundsParent.GetChild(0).GetChild(1).gameObject.SetActive(true);
     }
 
     private void OnDestroy()
