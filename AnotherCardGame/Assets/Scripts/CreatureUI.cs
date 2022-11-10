@@ -14,7 +14,6 @@ public class CreatureUI : MonoBehaviour
     public Transform effectsIconTransform;
     public GameObject effectIconPrefab;
     public TextMeshProUGUI powerTMP;
-    public TextMeshProUGUI shieldTMP;
     public Image artworkImage;
     public Image frameImage;
     public GameObject plantFrameParent;
@@ -75,7 +74,7 @@ public class CreatureUI : MonoBehaviour
         foreach (AbstractCreatureEffect creatureEffect in creatureSO.creatureEffects)
         {
             GameObject effectIconGo = Instantiate(effectIconPrefab, effectsIconTransform);
-            effectIconGo.transform.GetChild(1).GetComponent<Image>().sprite = creatureEffect.IconSprite;
+            effectIconGo.transform.GetChild(1).GetChild(1).GetComponent<Image>().sprite = creatureEffect.IconSprite;
         }
 
         for (int i = 0; i < manaCostTransform.childCount; i++)

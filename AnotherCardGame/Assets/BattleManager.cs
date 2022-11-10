@@ -12,8 +12,9 @@ public class BattleManager : MonoBehaviour
     public CreatureBattlingUI opponentBattlingUI;
 
     public float delayDisplayEndFight = 1f;
+    public float delayBeforeNextFight = 3f;
     public float timeDisplayAnnounceFight = 2f;
-
+    
     public int PlayerDamageForLastBattle { get; protected set; }
     public int OpponentDamageForLastBattle { get; protected set; }
 
@@ -56,6 +57,8 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(delayDisplayEndFight);
 
         battlePanel.SetActive(false);
+
+        yield return new WaitForSeconds(delayBeforeNextFight);
     }
 
     private void Battle(CreatureUI playerCreatureUI, CreatureUI opponentCreatureUI)

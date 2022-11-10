@@ -1,0 +1,486 @@
+fileFormatVersion: 2
+guid: 6118950294bfd5d44a18e4717a4c32ee
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 711
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5459faab14e8f6f4aa952bce93723157
+      internalID: -573642277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_1
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 711
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 677102611a2c9294d96372cf45fe858f
+      internalID: -1408412638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_2
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 711
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e31895b2db2afc1409b957c5b51da44f
+      internalID: 1941067864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_3
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 711
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0a339582982635499d2fb88ccb79f94
+      internalID: 653913903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 474
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 278fa9d0638f9874e980d6fa6df63dd8
+      internalID: 573278972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_5
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 474
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cae6b1b23e1bc1c4c8756e7788e6b366
+      internalID: -1359922597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_6
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 474
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b865b46a5b0f71449a1c8c3c5a59312e
+      internalID: 1669527994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_7
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 474
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e00196cfebdbdb649b5e838ca273016f
+      internalID: 581404215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 237
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb2704dcbeb44ff45a9201523864616b
+      internalID: -1040997190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_9
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 237
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7308dddd37a27c34aa5e69dd635c7b3f
+      internalID: -301848068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_10
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 237
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e8bb01603f10ff4f8340d12e2b72c09
+      internalID: 1550326416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_11
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 237
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11652af0b6c03624f861ab3276ea9783
+      internalID: 498914970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c45f93b5a3d52b242b7c20c47bf66f18
+      internalID: 1281528027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_13
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 0
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d069c8cb48485eb4bb9a67b825979d41
+      internalID: -1975744744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_14
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 0
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5447396f3bd6a714f94f0efed00aa87f
+      internalID: -538019556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: png-clipart-border-corner-corner-frame_15
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 0
+        width: 225
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78c9ed684dae29f41b2e398a16185c4b
+      internalID: 209081259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      png-clipart-border-corner-corner-frame_6: 1669527994
+      png-clipart-border-corner-corner-frame_9: -301848068
+      png-clipart-border-corner-corner-frame_14: -538019556
+      png-clipart-border-corner-corner-frame_10: 1550326416
+      png-clipart-border-corner-corner-frame_7: 581404215
+      png-clipart-border-corner-corner-frame_11: 498914970
+      png-clipart-border-corner-corner-frame_4: 573278972
+      png-clipart-border-corner-corner-frame_3: 653913903
+      png-clipart-border-corner-corner-frame_15: 209081259
+      png-clipart-border-corner-corner-frame_12: 1281528027
+      png-clipart-border-corner-corner-frame_1: -1408412638
+      png-clipart-border-corner-corner-frame_13: -1975744744
+      png-clipart-border-corner-corner-frame_0: -573642277
+      png-clipart-border-corner-corner-frame_2: 1941067864
+      png-clipart-border-corner-corner-frame_5: -1359922597
+      png-clipart-border-corner-corner-frame_8: -1040997190
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
