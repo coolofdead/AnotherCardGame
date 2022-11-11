@@ -15,9 +15,9 @@ public class CreatureEffectModulate
 
     public void Modulate(CreatureUI playerCreature, CreatureUI opponentCreature, CreatureEffectTargetType target)
     {
-        EffectActivationTimeType statsModifiedEventType = target == CreatureEffectTargetType.Self || target == CreatureEffectTargetType.Both ?
-                                                                    EffectActivationTimeType.OnSelfStatModified : EffectActivationTimeType.OnOpponentStatModified;
-        GameEventManager.TriggerEvent(statsModifiedEventType, new EventStruct());
+        EffectTiming statsModifiedEventType = EffectTiming.OnAttackDeclaration;
+        // target == CreatureEffectTargetType.Self || target == CreatureEffectTargetType.Both ? EffectTiming.OnSelfStatModified : EffectTiming.OnOpponentStatModified;
+        GameEventManager.TriggerEvent(statsModifiedEventType, new GameEvent());
 
         if (shouldModulatePower)
         {

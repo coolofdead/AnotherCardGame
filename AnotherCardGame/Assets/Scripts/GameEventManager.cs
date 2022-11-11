@@ -5,53 +5,44 @@ using System;
 
 public class GameEventManager : MonoBehaviour
 {
-    private static GameEventManager Instance;
+    private static Dictionary<EffectTiming, List<CreatureUI>> effectsToActivateByActivationTimeType = new Dictionary<EffectTiming, List<CreatureUI>>();
 
-    public GameManager gameManager;
-
-    //private static Dictionary<EffectActivationTimeType, List<CreatureEffect>> effectsToActivateByActivationTimeType = new Dictionary<EffectActivationTimeType, List<CreatureEffect>>();
-
-    private void Awake()
+    public static void TriggerEvent(GameEvent gameEvent)
     {
-        Instance = this;
-    }
-    
-    public static void TriggerEvent(EffectActivationTimeType effectActivationTimeType, EventStruct eventData)
-    {
-        //if (effectActivationTimeType == EffectActivationTimeType.OnEndFight)
-        //{
-        //    effectsToActivateByActivationTimeType.Clear();
-        //    return;
-        //}
+        List<CreatureUI> creaturesEffectsToTrigger = effectsToActivateByActivationTimeType.GetValueOrDefault(gameEvent.GetEventTiming());
+        if (creaturesEffectsToTrigger == null)
+            return;
 
-        //eventData.playerCreature = Instance.gameManager.playerCreatureFighting;
-        //eventData.opponentCreature = Instance.gameManager.opponentCreatureFighting;
-
-        //List<CreatureEffect> creaturesEffectsToTrigger = effectsToActivateByActivationTimeType.GetValueOrDefault(effectActivationTimeType);
-        //if (creaturesEffectsToTrigger == null)
-        //    return;
-
-        //foreach (CreatureEffect creatureEffect in creaturesEffectsToTrigger)
-        //{
-        //    creatureEffect.OnGameEvent(eventData);
-        //}
+        foreach (CreatureUI creatureUI in creaturesEffectsToTrigger)
+        {
+            foreach (AbstractCreatureEffect creatureEffect in creatureUI.creatureSO.CreatureEffects)
+            {
+                creatureEffect.ReceiveEvent(gameEvent);
+            }
+        }
     }
 
-    //public static void RegisterEffect(CreatureEffect creatureEffect, EffectActivationTimeType effectActivationTimeType)
-    //{
-    //    if (!effectsToActivateByActivationTimeType.ContainsKey(effectActivationTimeType))
-    //    {
-    //        effectsToActivateByActivationTimeType.Add(effectActivationTimeType, new List<CreatureEffect>());
-    //    }
+    public static void RegisterEffect(CreatureUI creatureUI)
+    {
+        foreach (AbstractCreatureEffect creatureEffect in creatureUI.creatureSO.CreatureEffects)
+        {
+            if (!effectsToActivateByActivationTimeType.ContainsKey(creatureEffect.GetActivationTimings()))
+            {
+                effectsToActivateByActivationTimeType.Add(creatureEffect.GetActivationTimings(), new List<CreatureUI>());
+            }
 
-    //    effectsToActivateByActivationTimeType.GetValueOrDefault(effectActivationTimeType).Add(creatureEffect);
-    //}
-}
+            effectsToActivateByActivationTimeType.GetValueOrDefault(creatureEffect.GetActivationTimings()).Add(creatureUI);
+        }
+    }
 
-public struct EventStruct
-{
-    public CreatureUI sourceCreature;
-    public int damage;
-    public CreatureUI playerCreature;
-    public CreatureUI opponentCreature;
+    public static void UnregisterEffect(CreatureUI creatureUI)
+    {
+        foreach (AbstractCreatureEffect creatureEffect in creatureUI.creatureSO.CreatureEffects)
+        {
+            if (effectsToActivateByActivationTimeType.ContainsKey(creatureEffect.GetActivationTimings()))
+            {
+                effectsToActivateByActivationTimeType[creatureEffect.GetActivationTimings()].Remove(creatureUI);
+            }
+        }
+    }
 }

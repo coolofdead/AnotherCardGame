@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerPlusEffect : AbstractCreatureEffect
+public class PowerPlusEffect
 {
     public override string ToString()
     {

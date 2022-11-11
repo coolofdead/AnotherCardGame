@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Playables;
 
 [CreateAssetMenu(fileName = "Creature", menuName = "Creature/New Creature", order = 1)]
 public class CreatureSO : ScriptableObject
@@ -34,21 +33,21 @@ public class CreatureSO : ScriptableObject
 
     [Header("Creature Effect")]
     public Effect effects = Effect.None;
-    public AbstractCreatureEffect[] creatureEffects => creatureEffectsByEffect.Where((keyValuePair) => effects.HasFlag(keyValuePair.Key))
-                                                                               .ToDictionary(x => x.Key, x => x.Value)
-                                                                               .Values.ToArray();
+    public AbstractCreatureEffect[] CreatureEffects => creatureEffectsByEffect.Where((keyValuePair) => effects.HasFlag(keyValuePair.Key))
+                                                                              .ToDictionary(x => x.Key, x => x.Value)
+                                                                              .Values.ToArray();
 
-    private static Dictionary<Effect, AbstractCreatureEffect> creatureEffectsByEffect = new Dictionary<Effect, AbstractCreatureEffect>()
+    public static Dictionary<Effect, AbstractCreatureEffect> creatureEffectsByEffect = new Dictionary<Effect, AbstractCreatureEffect>()
     {
         { Effect.Redraw, new RedrawEffect() },
-        { Effect.First_Attacker, new FirstAttackerEffect() },
-        { Effect.Blocker, new BlockerEffect() },
-        { Effect.Celerity, new CelerityEffect() },
-        { Effect.Defender, new DefenderEffect() },
-        { Effect.PowerModifier, new PowerPlusEffect() },
-        { Effect.Shield, new ShieldEffect() },
+        //{ Effect.First_Attacker, new FirstAttackerEffect() },
+        //{ Effect.Blocker, new BlockerEffect() },
+        //{ Effect.Celerity, new CelerityEffect() },
+        //{ Effect.Defender, new DefenderEffect() },
+        //{ Effect.PowerModifier, new PowerPlusEffect() },
+        //{ Effect.Shield, new ShieldEffect() },
     };
 
-    [Header("Creature Attack Animation")]
+[Header("Creature Attack Animation")]
     public CreatureAttackAnimationHandler attackAnimationPrefab;
 }

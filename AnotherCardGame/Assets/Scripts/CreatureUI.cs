@@ -53,28 +53,25 @@ public class CreatureUI : MonoBehaviour
                 frameImage.color = fireFrameColor;
                 frameParent = fireFrameParent;
                 creatureTypeLogo = fireCreatureTypeLogo;
-                //fireFrameParent.SetActive(true);
                 break;
             case CreatureType.Plant:
                 frameImage.color = plantFrameColor;
                 frameParent = plantFrameParent;
                 creatureTypeLogo = plantCreatureTypeLogo;
-                //plantFrameParent.SetActive(true);
                 break;
             case CreatureType.Water:
                 frameImage.color = waterFrameColor;
                 frameParent = waterFrameParent;
                 creatureTypeLogo = waterCreatureTypeLogo;
-                //waterFrameParent.SetActive(true);
                 break;
             default:
                 break;
         }
 
-        foreach (AbstractCreatureEffect creatureEffect in creatureSO.creatureEffects)
+        foreach (AbstractCreatureEffect creatureEffect in creatureSO.CreatureEffects)
         {
             GameObject effectIconGo = Instantiate(effectIconPrefab, effectsIconTransform);
-            effectIconGo.transform.GetChild(1).GetChild(1).GetComponent<Image>().sprite = creatureEffect.IconSprite;
+            effectIconGo.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = creatureEffect.IconSprite;
         }
 
         for (int i = 0; i < manaCostTransform.childCount; i++)
@@ -85,7 +82,6 @@ public class CreatureUI : MonoBehaviour
         artworkImage.transform.localScale = creatureSO.artworkScale;
 
         powerTMP.text = stats.power.ToString();
-        //shieldTMP.text = stats.shield > 0 ? stats.shield.ToString() : "";
     }
 
     public void CanBeSummoned(bool isSummonable)
@@ -99,6 +95,9 @@ public class CreatureUI : MonoBehaviour
     {
         hasBeenSummoned = true;
         CanBeSummoned(false);
+
+        // Register to effects
+        GameEventManager.RegisterEffect(this);
 
         Invoke("HideCreatureTypeThenShowFrame", summonDelay);
     }
@@ -145,6 +144,9 @@ public class CreatureUI : MonoBehaviour
 
             yield return null;
         }
+
+        // Unscubscribe to effects
+        GameEventManager.UnregisterEffect(this);
 
         Destroy(gameObject);
     }
