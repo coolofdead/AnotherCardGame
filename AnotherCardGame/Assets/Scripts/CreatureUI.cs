@@ -33,10 +33,11 @@ public class CreatureUI : MonoBehaviour
 
     [HideInInspector] public CreatureSO creatureSO;
     [HideInInspector] public CreatureStats stats;
+    [HideInInspector] public CreatureStats bonusStats;
     [HideInInspector] public CreatureUI slayerCreatureUI;
 
     private bool hasBeenSummoned;
-
+    
     public void SetCreatureSO(CreatureSO creatureSO)
     {
         this.creatureSO = creatureSO;

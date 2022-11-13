@@ -11,6 +11,7 @@ public class DroppableAreaUI : MonoBehaviour
     public enum AreaType { None, Battlefield, Hand }
     public AreaType areaType = AreaType.None;
 
+    public bool isControlledByPlayer = true;
     public bool isEnable;
     public bool IsAvailable => ElemOnArea == null;
 

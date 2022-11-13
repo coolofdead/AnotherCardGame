@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class TurnManager : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class TurnManager : MonoBehaviour
     {
         print("start revealing creatures");
 
+        int totalPlayerSummon = 0;
+
         foreach (KeyValuePair<DroppableAreaUI, CreatureUI> creatureUIByBattlefieldArea in creatureUISummonedThisTurnByArea)
         {
             creatureUIByBattlefieldArea.Value.Hide();
@@ -48,6 +51,7 @@ public class TurnManager : MonoBehaviour
             if (creatureUISummonedThisTurnByArea.TryGetValue(battlefieldAreaManager.GetBattlefieldArea(true, i), out creatureUIToSummon))
             {
                 creatureUIToSummon.Summon(DELAY_TO_REVEAL);
+                totalPlayerSummon++;
             }
 
             if (creatureUISummonedThisTurnByArea.TryGetValue(battlefieldAreaManager.GetBattlefieldArea(false, i), out creatureUIToSummon))
@@ -57,6 +61,26 @@ public class TurnManager : MonoBehaviour
 
             if (creatureUIToSummon != null)
                 yield return new WaitForSeconds(DELAY_TO_REVEAL);
+        }
+
+        int nthPlayerSummon = 0;
+        for (int i = 0; i < creatureUISummonedThisTurnByArea.Count; i++)
+        {
+            KeyValuePair<DroppableAreaUI, CreatureUI> creatureUIBydroppableAreaUI = creatureUISummonedThisTurnByArea.ElementAt(i);
+            DroppableAreaUI droppableAreaUI = creatureUIBydroppableAreaUI.Key;
+            CreatureUI creatureUI = creatureUIBydroppableAreaUI.Value;
+
+            if (droppableAreaUI.isControlledByPlayer) nthPlayerSummon++;
+
+            GameEventManager.TriggerEvent(
+                new SummonGameEvent()
+                    {
+                        summonedCreature = creatureUI,
+                        nthPlayerSummon = nthPlayerSummon,
+                        totalPlayerSummon = totalPlayerSummon,
+                        isPlayerCreature = droppableAreaUI.isControlledByPlayer
+                    }
+            );
         }
 
         creatureUISummonedThisTurnByArea.Clear();

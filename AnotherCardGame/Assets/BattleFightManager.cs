@@ -23,6 +23,14 @@ public class BattleFightManager : MonoBehaviour
 
             yield return battleManager.AnnounceFight(battlefieldAreaManager.GetBattlefieldArea(true, i), battlefieldAreaManager.GetBattlefieldArea(false, i));
 
+            BattleDeclarationGameEvent battleDeclarationGameEvent = new BattleDeclarationGameEvent()
+            {
+                playerCreatureUI = playerCreatureUI,
+                opponentCreatureUI = opponentCreatureUI,
+                nthBattle = i
+            };
+            GameEventManager.TriggerEvent(battleDeclarationGameEvent);
+
             yield return battleManager.Fight(playerCreatureUI, opponentCreatureUI);
 
             totalPlayerDamageReceived += battleManager.PlayerDamageForLastBattle;

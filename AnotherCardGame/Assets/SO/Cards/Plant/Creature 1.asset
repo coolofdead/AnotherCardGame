@@ -28,5 +28,5 @@ MonoBehaviour:
   battleArtworkAnchoredPosition: {x: 0, y: 0}
   battleArtworkScale: {x: 1.4, y: 1.4}
   flipArtworkOnBattle: 0
-  effects: 80
+  effects: 0
   attackAnimationPrefab: {fileID: 1039800436, guid: a36c214c0d77b474d9a757b0a0105b91, type: 3}

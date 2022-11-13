@@ -4,5 +4,7 @@ using UnityEngine;
 
 public abstract class GameEvent
 {
+    public CreatureUI creatureUI;
+
     public abstract EffectTiming GetEventTiming();
 }

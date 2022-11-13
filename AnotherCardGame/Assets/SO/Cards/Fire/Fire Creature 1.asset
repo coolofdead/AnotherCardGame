@@ -17,7 +17,7 @@ MonoBehaviour:
   subCreatureTypePlant: 2
   subCreatureTypeWater: 0
   stats:
-    manaCost: 2
+    manaCost: 1
     power: 2000
     shield: 0
   creatureName: Flower Dancer

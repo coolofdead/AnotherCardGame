@@ -40,7 +40,7 @@ public class CreatureSO : ScriptableObject
     public static Dictionary<Effect, AbstractCreatureEffect> creatureEffectsByEffect = new Dictionary<Effect, AbstractCreatureEffect>()
     {
         { Effect.Redraw, new RedrawEffect() },
-        //{ Effect.First_Attacker, new FirstAttackerEffect() },
+        { Effect.First_Attacker, new FirstAttackerEffect() },
         //{ Effect.Blocker, new BlockerEffect() },
         //{ Effect.Celerity, new CelerityEffect() },
         //{ Effect.Defender, new DefenderEffect() },

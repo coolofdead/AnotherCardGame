@@ -5,6 +5,8 @@ using System;
 
 public class GameEventManager : MonoBehaviour
 {
+    public ChoiceManager choiceManager;
+
     private static Dictionary<EffectTiming, List<CreatureUI>> effectsToActivateByActivationTimeType = new Dictionary<EffectTiming, List<CreatureUI>>();
 
     public static void TriggerEvent(GameEvent gameEvent)
@@ -17,7 +19,14 @@ public class GameEventManager : MonoBehaviour
         {
             foreach (AbstractCreatureEffect creatureEffect in creatureUI.creatureSO.CreatureEffects)
             {
+                gameEvent.creatureUI = creatureUI; // Assign creatureUI to the base game event to know which creature is receiving the event
+
                 creatureEffect.ReceiveEvent(gameEvent);
+
+                if (creatureEffect is IEffectChoicable)
+                {
+                    
+                }
             }
         }
     }

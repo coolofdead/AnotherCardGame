@@ -17,7 +17,6 @@ public class CreatureEffectModulate
     {
         EffectTiming statsModifiedEventType = EffectTiming.OnAttackDeclaration;
         // target == CreatureEffectTargetType.Self || target == CreatureEffectTargetType.Both ? EffectTiming.OnSelfStatModified : EffectTiming.OnOpponentStatModified;
-        GameEventManager.TriggerEvent(statsModifiedEventType, new GameEvent());
 
         if (shouldModulatePower)
         {
