@@ -5,6 +5,7 @@ using UnityEngine;
 public class SummonGameEvent : GameEvent
 {
     public CreatureUI summonedCreature;
+    public CreatureUI faceOffCreature;
     public int nthSummon;
     public int nthPlayerSummon;
     public int totalPlayerSummon;

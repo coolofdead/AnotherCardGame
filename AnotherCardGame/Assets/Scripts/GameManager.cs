@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using TMPro;
 
-public class GameManager : MonoBehaviour
+public class GameManager : AbstractManager<GameManager>
 {
     [Header("Players")]
     public Player player;
@@ -21,9 +22,15 @@ public class GameManager : MonoBehaviour
     public BattlefieldAreaManager battlefieldAreaManager;
     public BattleFightManager battleFightManager;
 
+    // Actions
+    public Action<GameState> onGameStateChanged;
+
     private void Start()
     {
         // DEBUG
+        player.deck.Shuffle();
+        opponent.deck.Shuffle();
+
         player.FillHandAndResetMana();
         opponent.FillHandAndResetMana();
         StartFight();
@@ -46,6 +53,8 @@ public class GameManager : MonoBehaviour
         player.isReadyToStartRound = false;
         opponent.isReadyToStartRound = false;
 
+        onGameStateChanged?.Invoke(GameState.PlaceCreatures);
+
         // Wait for players
         yield return new WaitUntil(() => player.isReadyToStartRound && opponent.isReadyToStartRound);
 
@@ -54,21 +63,28 @@ public class GameManager : MonoBehaviour
         // IA plays (or online opp)
         enemyManager.Play();
 
+        onGameStateChanged?.Invoke(GameState.SummonCreatures);
+
         // Reveal summoned creatures this turn
         yield return turnManager.RevealCreaturesSummonedThisTurn();
+
+        onGameStateChanged?.Invoke(GameState.ProcessFight);
 
         // Fight
         yield return battleFightManager.ProcessFights();
 
-        // Reset at end turn
-        player.FillHandAndResetMana();
-        opponent.FillHandAndResetMana();
+        onGameStateChanged?.Invoke(GameState.FinishTurn);
 
         // Move to next turn
         if (turnManager.Round < TurnManager.TOTAL_ROUND)
         {
-            turnManager.MoveToNextRound();
-            StartFight();
+            yield return turnManager.MoveToNextRound();
+
+            // Reset at end turn
+            player.FillHandAndResetMana();
+            opponent.FillHandAndResetMana();
+
+            StartCoroutine(Fight());
         }
     }
 }

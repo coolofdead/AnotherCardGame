@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.Events;
 
 [Serializable]
 public class Hand : IEnumerable
 {
-    public Action<Hand, CreatureSO> onCardAdded;
-
     public const int MAX_CARD_IN_HAND = 5;
 
     [SerializeField] private List<CreatureSO> cards = new List<CreatureSO>(MAX_CARD_IN_HAND);
     public int CurrentCardsInHand => cards.Count;
 
-    public void AddCardToHand(CreatureSO card)
+    public void RemoveCard(CreatureSO card)
     {
-        cards.Add(card);
+        cards.Remove(card);
+    }
 
-        onCardAdded?.Invoke(this, card);
+    public void AddCard(CreatureSO card)
+    {
+        if (cards.Count < MAX_CARD_IN_HAND)
+            cards.Add(card);
     }
 
     public IEnumerator GetEnumerator()

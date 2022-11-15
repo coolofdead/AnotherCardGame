@@ -19,17 +19,17 @@ public class CreatureEffectRequirementStats
 
         if (creatureEffectTargetType == CreatureEffectTargetType.Self || creatureEffectTargetType == CreatureEffectTargetType.Both)
         {
-            selfCompare = selfCreature.stats.Compare(stats, creatureEffectRequirementType);
+            selfCompare = selfCreature.Stats.Compare(stats, creatureEffectRequirementType);
         }
 
         if (creatureEffectTargetType == CreatureEffectTargetType.Opponent || creatureEffectTargetType == CreatureEffectTargetType.Both)
         {
-            opponentCompare = opponentCreature.stats.Compare(stats, creatureEffectRequirementType);
+            opponentCompare = opponentCreature.Stats.Compare(stats, creatureEffectRequirementType);
         }
 
         if (creatureEffectTargetType == CreatureEffectTargetType.SelfToOpponent)
         {
-            selfToOpponent = selfCreature.stats.Compare(opponentCreature.stats, creatureEffectRequirementType);
+            selfToOpponent = selfCreature.Stats.Compare(opponentCreature.Stats, creatureEffectRequirementType);
         }
 
         return selfCompare && opponentCompare && selfToOpponent;

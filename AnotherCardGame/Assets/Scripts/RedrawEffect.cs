@@ -1,46 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-public class RedrawEffect : AbstractCreatureEffect, IEffectChoicable
+public class RedrawEffect : AbstractCreatureEffect
 {
+    private bool choicesValidated = false;
+
+    public override IEnumerator Activate(GameEvent gameEvent)
+    {
+        SetupRedraw(gameEvent);
+
+        yield return new WaitWhile(() => !choicesValidated);
+    }
+
+    private void SetupRedraw(GameEvent gameEvent)
+    {
+        choicesValidated = false;
+
+        AllCreatureSummonedGameEvent allCreatureSummonedGameEvent = gameEvent as AllCreatureSummonedGameEvent;
+
+        ChoicesDetails choiceDetails = new ChoicesDetails()
+        {
+            choiceType = ChoicesType.DroppableArea,
+            nbChoices = allCreatureSummonedGameEvent.totalPlayerSummon,
+            callbackOnSelection = OnChoicesValidate
+        };
+        ChoiceManager.Instance.SetupChoices(choiceDetails);
+    }
+
+    private void OnChoicesValidate(List<DragableUI> choicesDragablesUI)
+    {
+        choicesValidated = true;
+
+        int nbCardsToRedraw = choicesDragablesUI.Count;
+        foreach (DragableUI dragableUI in choicesDragablesUI)
+        {
+            CreatureUI creatureUI = dragableUI.GetComponent<CreatureUI>();
+
+            GameManager.Instance.player.deck.PutBackToDeck(creatureUI.creatureSO);
+            UnityEngine.Object.Destroy(creatureUI.gameObject);
+        }
+
+        for (int i = 0; i < nbCardsToRedraw; i++)
+            GameManager.Instance.player.Draw();
+    }
+
     public override EffectTiming GetActivationTimings()
     {
-        return EffectTiming.OnSummon;
+        return EffectTiming.OnAllCreatureSummoned;
+    }
+
+    public override bool RequirementsMet(GameEvent gameEvent)
+    {
+        return true;
+    }
+
+    public override Effect GetEffectType()
+    {
+        return Effect.Redraw;
     }
 
     public override string ToString()
     {
         return Effect.Redraw.ToString();
-    }
-
-    public override void Activate(GameEvent gameEvent)
-    {
-        SummonGameEvent summonGameEvent = gameEvent as SummonGameEvent;
-
-        Debug.Log("should redraw " + summonGameEvent.totalPlayerSummon);
-    }
-
-    public override bool RequirementsMet(GameEvent gameEvent)
-    {
-        SummonGameEvent summonGameEvent = gameEvent as SummonGameEvent;
-
-        // Effect activate only on creature summon
-        return summonGameEvent.creatureUI == summonGameEvent.summonedCreature;
-    }
-
-    public ChoiceDetails GetChoicesDetails()
-    {
-        return new ChoiceDetails()
-        {
-            choiceType = ChoiceType.DroppableArea,
-            nbChoices = 3,
-        };
-    }
-
-    public void ChoicesSelectionCallback()
-    {
-        
     }
 }

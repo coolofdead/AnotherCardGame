@@ -5,11 +5,10 @@ using System;
 
 public class DroppableAreaUI : MonoBehaviour
 {
-    public static Action<AreaType, AreaType, DroppableAreaUI, DroppableAreaUI, DragableUI> onElementMovedTo;
-    public static Action<AreaType, DroppableAreaUI, DragableUI> onElementPlaced;
+    public static Action<DropableAreaType, DropableAreaType, DroppableAreaUI, DroppableAreaUI, DragableUI> onElementMovedTo;
+    public static Action<DropableAreaType, DroppableAreaUI, DragableUI> onElementPlaced;
 
-    public enum AreaType { None, Battlefield, Hand }
-    public AreaType areaType = AreaType.None;
+    public DropableAreaType areaType = DropableAreaType.None;
 
     public bool isControlledByPlayer = true;
     public bool isEnable;
@@ -52,26 +51,27 @@ public class DroppableAreaUI : MonoBehaviour
 
         if (isHovering && ElemOnArea == null)
         {
-            PlaceCard(elem);
+            MoveCard(elem);
         }
     }
 
-    public void PlaceCard(DragableUI elem, bool isAnInstantiate = false)
+    public void MoveCard(DragableUI elem)
+    {
+        PlaceCard(elem);
+
+        onElementPlaced?.Invoke(areaType, this, elem);
+    }
+
+    public void PlaceCard(DragableUI elem) // Place physicaly a card but don't fire any events
     {
         elem.transform.SetParent(cardHandler);
         elem.transform.localPosition = Vector3.zero;
         elem.transform.localScale = Vector3.one;
 
-        if (elem != ElemOnArea)
-        {
-            ElemOnArea = elem;
-
-            if (isAnInstantiate == false)
-                onElementPlaced?.Invoke(areaType, this, elem);
-        }
+        ElemOnArea = elem;
     }
 
-    private void FreeArea(AreaType toAreaType, DroppableAreaUI droppableAreaUI, DragableUI dragableUI)
+    private void FreeArea(DropableAreaType toAreaType, DroppableAreaUI droppableAreaUI, DragableUI dragableUI)
     {
         if (ElemOnArea == dragableUI && droppableAreaUI != this)
         {

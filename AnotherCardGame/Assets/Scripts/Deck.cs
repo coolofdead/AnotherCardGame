@@ -9,6 +9,8 @@ public class Deck
 {
     public const int MAX_CARD_DECK = 14;
 
+    public Action<Hand, CreatureSO> onCardDrawn;
+
     public List<CreatureSO> creatures = new List<CreatureSO>(MAX_CARD_DECK);
 
     public void LoadDeck(string recipe)
@@ -23,7 +25,12 @@ public class Deck
         creatures = creatures.Randomize().ToList();
     }
 
-    public CreatureSO Draw()
+    public void PutBackToDeck(CreatureSO creatureSO)
+    {
+        creatures.Add(creatureSO);
+    }
+
+    public void Draw(Hand hand)
     {
         CreatureSO drawnCreature = null;
         if (creatures.Count != 0)
@@ -32,6 +39,8 @@ public class Deck
             creatures.RemoveAt(0);
         }
 
-        return drawnCreature;
+        hand.AddCard(drawnCreature);
+
+        onCardDrawn?.Invoke(hand, drawnCreature);
     }
 }

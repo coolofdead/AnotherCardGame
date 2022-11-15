@@ -2,30 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManaManager : MonoBehaviour
+public class ManaManager : AbstractManager<ManaManager>
 {
     [Header("Managers")]
     public GameManager gameManager;
     public HandUIManager handUIManager;
 
-    private void Awake()
+    protected override void Awake()
     {
-        DroppableAreaUI.onElementMovedTo += OnCreatureMovedUpdateMana;
+        base.Awake();
         gameManager.player.onManaChanged += CheckManaCostRequired;
+        gameManager.onGameStateChanged += OnGameStateChangedListenCardsMove;
     }
 
-    private void OnCreatureMovedUpdateMana(DroppableAreaUI.AreaType fromArea, DroppableAreaUI.AreaType toArea, DroppableAreaUI fromDroppableAreaUI, DroppableAreaUI toDroppableAreaUI, DragableUI dragableUI)
+    private void OnGameStateChangedListenCardsMove(GameState currentGameState)
     {
+        if (currentGameState == GameState.PlaceCreatures)
+        {
+            DroppableAreaUI.onElementMovedTo += OnCreatureMovedUpdateMana;
+        }
+        else
+        {
+            DroppableAreaUI.onElementMovedTo -= OnCreatureMovedUpdateMana;
+        }
+    }
+
+    private void OnCreatureMovedUpdateMana(DropableAreaType fromArea, DropableAreaType toArea, DroppableAreaUI fromDroppableAreaUI, DroppableAreaUI toDroppableAreaUI, DragableUI dragableUI)
+    {
+        if (fromDroppableAreaUI.isControlledByPlayer == false)
+            return;
+
         CreatureUI creatureUI = dragableUI.GetComponent<CreatureUI>();
 
-        if (fromArea == DroppableAreaUI.AreaType.Hand && toArea == DroppableAreaUI.AreaType.Battlefield)
+        if (fromArea == DropableAreaType.Hand && toArea == DropableAreaType.Battlefield)
         {
-            gameManager.player.PayManaCost(creatureUI.creatureSO.stats.manaCost);
+            gameManager.player.PayManaCost(creatureUI.BaseStats.manaCost);
         }
         
-        if (fromArea == DroppableAreaUI.AreaType.Battlefield && toArea == DroppableAreaUI.AreaType.Hand)
+        if (fromArea == DropableAreaType.Battlefield && toArea == DropableAreaType.Hand)
         {
-            gameManager.player.RefundManaCost(creatureUI.creatureSO.stats.manaCost);
+            gameManager.player.RefundManaCost(creatureUI.BaseStats.manaCost);
         }
     }
 
@@ -33,13 +49,13 @@ public class ManaManager : MonoBehaviour
     {
         foreach (CreatureUI creatureUI in handUIManager.playerHandCards)
         {
-            creatureUI.CanBeSummoned(creatureUI.stats.manaCost <= mana);
+            creatureUI.CanBeSummon(creatureUI.Stats.manaCost <= mana);
         }
     }
 
     private void OnDestroy()
     {
-        DroppableAreaUI.onElementMovedTo -= OnCreatureMovedUpdateMana;
         gameManager.player.onManaChanged -= CheckManaCostRequired;
+        gameManager.onGameStateChanged -= OnGameStateChangedListenCardsMove;
     }
 }

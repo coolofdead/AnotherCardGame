@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManaUIManager : MonoBehaviour
+public class ManaUIManager : AbstractManager<ManaUIManager>
 {
     public GameManager gameManager;
     public Transform manaTransform;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         gameManager.player.onManaChanged += UpdateManaUI;
     }
 

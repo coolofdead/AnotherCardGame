@@ -27,8 +27,8 @@ public class CreaturePowerText : MonoBehaviour
 
     private IEnumerator DisplayDefensivePower()
     {
-        int power = creatureBattlingUI.CreatureUI.stats.power;
-        int shield = creatureBattlingUI.CreatureUI.stats.shield;
+        int power = creatureBattlingUI.CreatureUI.Stats.power;
+        int shield = creatureBattlingUI.CreatureUI.Stats.shield;
 
         float currentTime = 0;
 
@@ -53,7 +53,7 @@ public class CreaturePowerText : MonoBehaviour
     public void ResetTexts()
     {
         powerTMP.color = Color.white;
-        powerTMP.text = creatureBattlingUI.CreatureUI.stats.power.ToString();
+        powerTMP.text = creatureBattlingUI.CreatureUI.Stats.power.ToString();
         shieldTMP.transform.localPosition = defaultLocalPos;
     }
 }

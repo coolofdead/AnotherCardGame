@@ -1,12 +1,13 @@
 [System.Flags]
 public enum Effect 
 { 
-    None = 0, 
     Redraw = 1, 
-    First_Attacker = 2, 
-    Celerity = 4, 
+    FirstAttacker = 2, 
+    //Celerity = 4, 
     Shield = 8, 
-    Blocker = 16, 
-    PowerModifier = 32,
-    Defender = 64 
+    //Blocker = 16,
+    PowerPlus = 32,
+    Defender = 64,
+    PowerReduce = 128,
+    Return = 256
 }

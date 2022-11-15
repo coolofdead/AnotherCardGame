@@ -20,19 +20,21 @@ public class Player
 
     public void FillHandAndResetMana()
     {
-        deck.Shuffle();
-
-        mana = MAX_MANA;
-
+        RefundManaCost(MAX_MANA - mana);
         FillHand();
     }
 
-    private void FillHand()
+    public void FillHand()
     {
         while (hand.CurrentCardsInHand < Hand.MAX_CARD_IN_HAND)
         {
-            hand.AddCardToHand(deck.Draw());
+            deck.Draw(hand);
         }
+    }
+
+    public void Draw()
+    {
+        deck.Draw(hand);
     }
     
     public void RefundManaCost(int cost) => PayManaCost(-cost);

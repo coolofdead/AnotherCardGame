@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DamageCounterManager : MonoBehaviour
+public class DamageCounterManager : AbstractManager<DamageCounterManager>
 {
     public GameManager gameManager;
 
     public TextMeshProUGUI playerDamageCounterTMP;
     public TextMeshProUGUI opponentDamageCounterTMP;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         gameManager.player.onDamageReceived += UpdateDamageCounter;
         gameManager.opponent.onDamageReceived += UpdateDamageCounter;
     }

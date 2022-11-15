@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-public class BattlefieldAreaManager : MonoBehaviour
+public class BattlefieldAreaManager : AbstractManager<BattlefieldAreaManager>
 {
-    public static int MAX_FIELD_AREA = 3;
+    public const int MAX_FIELD_AREA = 3;
+
+    public Transform battlefieldTransform;
 
     public Transform playerBattlefield;
     public Transform opponentBattlefield;
@@ -12,8 +15,9 @@ public class BattlefieldAreaManager : MonoBehaviour
     private DroppableAreaUI[] playerBattlefieldAreas;
     private DroppableAreaUI[] opponentBattlefieldAreas;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         playerBattlefieldAreas = playerBattlefield.GetComponentsInChildren<DroppableAreaUI>();
         opponentBattlefieldAreas = opponentBattlefield.GetComponentsInChildren<DroppableAreaUI>();
     }
@@ -30,5 +34,24 @@ public class BattlefieldAreaManager : MonoBehaviour
         DroppableAreaUI[] droppableAreaUIs = playerField ? playerBattlefieldAreas : opponentBattlefieldAreas;
 
         return droppableAreaUIs[fieldIndex];
+    }
+
+    public CreatureUI[] GetAllCreaturesOnBattlefield()
+    {
+        return battlefieldTransform.GetComponentsInChildren<CreatureUI>();
+    }
+
+    public DroppableAreaUI[] GetAllBattlefieldAreasAvailable(bool getPlayerSide)
+    {
+        List<DroppableAreaUI> availableBattlefieldAreas = new List<DroppableAreaUI>();
+        for (int i = 0; i < MAX_FIELD_AREA; i++)
+        {
+            DroppableAreaUI droppableAreaUI = GetBattlefieldArea(getPlayerSide, i);
+            if (droppableAreaUI.IsAvailable)
+            {
+                availableBattlefieldAreas.Add(droppableAreaUI);
+            }
+        }
+        return availableBattlefieldAreas.ToArray();
     }
 }

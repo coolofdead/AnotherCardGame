@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class BattleManager : MonoBehaviour
+public class BattleManager : AbstractManager<BattleManager>
 {
     public GameObject battlePanel;
     public PlayableDirector battlePanelTimeline;
@@ -43,7 +43,7 @@ public class BattleManager : MonoBehaviour
         
         yield return new WaitWhile(() => battlePanelTimeline.state == PlayState.Playing);
 
-        if (playerCreatureUI == null || opponentCreatureUI == null)
+        if (playerCreatureUI == null && opponentCreatureUI.canAttackDirectly || opponentCreatureUI == null && playerCreatureUI.canAttackDirectly)
         {
             DirectAttack(playerCreatureUI, opponentCreatureUI);
         }
@@ -63,28 +63,28 @@ public class BattleManager : MonoBehaviour
 
     private void Battle(CreatureUI playerCreatureUI, CreatureUI opponentCreatureUI)
     {
-        if (playerCreatureUI.stats.power >= (opponentCreatureUI.stats.power + opponentCreatureUI.stats.shield)) // Player tie or more
+        if (playerCreatureUI.Stats.power >= (opponentCreatureUI.Stats.power + opponentCreatureUI.Stats.shield)) // Player tie or more
         {
-            OpponentDamageForLastBattle = playerCreatureUI.stats.power - opponentCreatureUI.stats.power;
+            OpponentDamageForLastBattle = playerCreatureUI.Stats.power - opponentCreatureUI.Stats.power;
             playerBattlingUI.KillOpponent(opponentBattlingUI);
             deadCreatures.Add(opponentCreatureUI);
             opponentCreatureUI.slayerCreatureUI = playerCreatureUI;
         }
 
-        if (opponentCreatureUI.stats.power >= (playerCreatureUI.stats.power + playerCreatureUI.stats.shield)) // Opponent tie or more
+        if (opponentCreatureUI.Stats.power >= (playerCreatureUI.Stats.power + playerCreatureUI.Stats.shield)) // Opponent tie or more
         {
-            PlayerDamageForLastBattle = opponentCreatureUI.stats.power - playerCreatureUI.stats.power;
+            PlayerDamageForLastBattle = opponentCreatureUI.Stats.power - playerCreatureUI.Stats.power;
             opponentBattlingUI.KillOpponent(playerBattlingUI);
             deadCreatures.Add(playerCreatureUI);
             playerCreatureUI.slayerCreatureUI = opponentCreatureUI;
         }
 
-        if (playerCreatureUI.stats.power + playerCreatureUI.stats.shield > opponentCreatureUI.stats.power && playerCreatureUI.stats.shield > 0)
+        if (playerCreatureUI.Stats.power + playerCreatureUI.Stats.shield > opponentCreatureUI.Stats.power && playerCreatureUI.Stats.shield > 0)
         {
             playerBattlingUI.SurvivesWithShield();
         }
 
-        if (opponentCreatureUI.stats.power + opponentCreatureUI.stats.shield > playerCreatureUI.stats.power && opponentCreatureUI.stats.shield > 0)
+        if (opponentCreatureUI.Stats.power + opponentCreatureUI.Stats.shield > playerCreatureUI.Stats.power && opponentCreatureUI.Stats.shield > 0)
         {
             opponentBattlingUI.SurvivesWithShield();
         }
@@ -94,13 +94,13 @@ public class BattleManager : MonoBehaviour
     {
         if (playerCreatureUI == null)
         {
-            PlayerDamageForLastBattle = opponentCreatureUI.stats.power;
+            PlayerDamageForLastBattle = opponentCreatureUI.Stats.power;
             opponentBattlingUI.KillOpponent(playerBattlingUI);
         }
 
         if (opponentCreatureUI == null)
         {
-            OpponentDamageForLastBattle = playerCreatureUI.stats.power;
+            OpponentDamageForLastBattle = playerCreatureUI.Stats.power;
             playerBattlingUI.KillOpponent(opponentBattlingUI);
         }
     }

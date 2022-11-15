@@ -18,7 +18,7 @@ MonoBehaviour:
   subCreatureTypeWater: 0
   stats:
     manaCost: 4
-    power: 8000
+    power: 2000
     shield: 0
   creatureName: 1
   effectDescription: ?????????????

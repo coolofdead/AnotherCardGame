@@ -47,8 +47,8 @@ public class CreatureBattlingUI : MonoBehaviour
             artwork.rectTransform.Rotate(Vector3.up * 180, Space.Self);
 
         creatureNameTMP.text = creatureUI.creatureSO.creatureName;
-        creaturePowerTMP.text = creatureUI.stats.power.ToString();
-        creatureShieldTMP.text = creatureUI.stats.shield > 0 ? creatureUI.stats.shield.ToString() : "";
+        creaturePowerTMP.text = creatureUI.Stats.power.ToString();
+        creatureShieldTMP.text = creatureUI.Stats.shield > 0 ? creatureUI.Stats.shield.ToString() : "";
     }
 
     public void SurvivesWithShield()

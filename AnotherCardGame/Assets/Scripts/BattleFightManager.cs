@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class BattleFightManager : MonoBehaviour
+public class BattleFightManager : AbstractManager<BattleFightManager>
 {
     [Header("Managers")]
     public GameManager gameManager;
     public BattleManager battleManager;
     public BattlefieldAreaManager battlefieldAreaManager;
+
+    public const int FIRST_BATTLE_NTH = 0;
+    public const int LAST_BATTLE_NTH = BattlefieldAreaManager.MAX_FIELD_AREA - 1;
 
     public IEnumerator ProcessFights()
     {
@@ -20,6 +23,11 @@ public class BattleFightManager : MonoBehaviour
             CreatureUI opponentCreatureUI = battlefieldAreaManager.GetCreatureOnField(false, i);
 
             if (playerCreatureUI == null && opponentCreatureUI == null) continue;
+            if (
+                (playerCreatureUI != null && !playerCreatureUI.canAttackDirectly && opponentCreatureUI == null) 
+                || 
+                (opponentCreatureUI != null && !opponentCreatureUI.canAttackDirectly && playerCreatureUI == null)
+            ) continue;
 
             yield return battleManager.AnnounceFight(battlefieldAreaManager.GetBattlefieldArea(true, i), battlefieldAreaManager.GetBattlefieldArea(false, i));
 
@@ -29,7 +37,7 @@ public class BattleFightManager : MonoBehaviour
                 opponentCreatureUI = opponentCreatureUI,
                 nthBattle = i
             };
-            GameEventManager.TriggerEvent(battleDeclarationGameEvent);
+            yield return GameEventManager.TriggerEvent(battleDeclarationGameEvent);
 
             yield return battleManager.Fight(playerCreatureUI, opponentCreatureUI);
 

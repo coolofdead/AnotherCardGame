@@ -5,27 +5,34 @@ using System;
 
 public class FirstAttackerEffect : AbstractCreatureEffect
 {
-    public override void Activate(GameEvent gameEvent)
+    public override IEnumerator Activate(GameEvent gameEvent)
     {
-        gameEvent.creatureUI.stats.power += gameEvent.creatureUI.creatureSO.stats.manaCost * 1000;
+        creatureOwner.tempBonusStats.power += 1000;
+
+        yield return null;
     }
 
     public override EffectTiming GetActivationTimings()
     {
-        return EffectTiming.OnAttackDeclaration | EffectTiming.OnBattleFinished;
+        return EffectTiming.OnAttackDeclaration;
+    }
+
+    public override Effect GetEffectType()
+    {
+        return Effect.FirstAttacker;
     }
 
     public override bool RequirementsMet(GameEvent gameEvent)
     {
         BattleDeclarationGameEvent battleDeclarationGameEvent = gameEvent as BattleDeclarationGameEvent;
 
-        bool isPlayerCreatureFighting = gameEvent.creatureUI == battleDeclarationGameEvent.playerCreatureUI;
-        bool isOpoonentCreatureFighting = gameEvent.creatureUI == battleDeclarationGameEvent.opponentCreatureUI;
-        return battleDeclarationGameEvent.nthBattle == 0 && (isPlayerCreatureFighting || isOpoonentCreatureFighting);
+        bool isPlayerCreatureFighting = creatureOwner == battleDeclarationGameEvent.playerCreatureUI;
+        bool isOpoonentCreatureFighting = creatureOwner == battleDeclarationGameEvent.opponentCreatureUI;
+        return battleDeclarationGameEvent.nthBattle == BattleFightManager.FIRST_BATTLE_NTH && (isPlayerCreatureFighting || isOpoonentCreatureFighting);
     }
 
     public override string ToString()
     {
-        return Effect.First_Attacker.ToString();
+        return Effect.FirstAttacker.ToString();
     }
 }

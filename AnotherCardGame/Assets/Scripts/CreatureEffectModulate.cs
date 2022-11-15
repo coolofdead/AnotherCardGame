@@ -15,7 +15,6 @@ public class CreatureEffectModulate
 
     public void Modulate(CreatureUI playerCreature, CreatureUI opponentCreature, CreatureEffectTargetType target)
     {
-        EffectTiming statsModifiedEventType = EffectTiming.OnAttackDeclaration;
         // target == CreatureEffectTargetType.Self || target == CreatureEffectTargetType.Both ? EffectTiming.OnSelfStatModified : EffectTiming.OnOpponentStatModified;
 
         if (shouldModulatePower)
@@ -39,22 +38,22 @@ public class CreatureEffectModulate
 
     private void ModulateStats(CreatureUI targetCreature, CreatureStats statsToModulate)
     {
-        switch (powerModulationType)
-        {
-            case ModulationType.Add:
-                targetCreature.stats += statsToModulate;
-                break;
-            case ModulationType.Substract:
-                targetCreature.stats-= statsToModulate;
-                break;
-            case ModulationType.Multiply:
-                targetCreature.stats *= statsToModulate;
-                break;
-            case ModulationType.Divide:
-                targetCreature.stats /= statsToModulate;
-                break;
-            default:
-                break;
-        }
+        //switch (powerModulationType)
+        //{
+            //case ModulationType.Add:
+            //    targetCreature.Stats += statsToModulate;
+            //    break;
+            //case ModulationType.Substract:
+            //    targetCreature.Stats-= statsToModulate;
+            //    break;
+            //case ModulationType.Multiply:
+            //    targetCreature.Stats *= statsToModulate;
+            //    break;
+            //case ModulationType.Divide:
+            //    targetCreature.Stats /= statsToModulate;
+            //    break;
+            //default:
+            //    break;
+        //}
     }
 }

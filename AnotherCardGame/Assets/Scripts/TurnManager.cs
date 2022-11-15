@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class TurnManager : MonoBehaviour
+public class TurnManager : AbstractManager<TurnManager>
 {
     public const float DELAY_TO_REVEAL = 2f;
     public const int TOTAL_ROUND = 3;
 
+    public GameManager gameManager;
     public BattlefieldAreaManager battlefieldAreaManager;
 
     public Transform roundsParent;
@@ -16,19 +17,34 @@ public class TurnManager : MonoBehaviour
 
     public int Round { get; private set; }
 
-    private void Awake()
+    private SummonGameEvent summonGameEvent;
+
+    protected override void Awake()
     {
-        DroppableAreaUI.onElementMovedTo += OnCreaturePlacedOnBattlefield;
+        base.Awake();
+        gameManager.onGameStateChanged += OnGameStateChangedListenCardsMove;
     }
 
-    private void OnCreaturePlacedOnBattlefield(DroppableAreaUI.AreaType fromArea, DroppableAreaUI.AreaType toArea, DroppableAreaUI fromDroppableAreaUI, DroppableAreaUI toDroppableAreaUI, DragableUI dragableUI)
+    private void OnGameStateChangedListenCardsMove(GameState currentGameState)
     {
-        if (fromArea == DroppableAreaUI.AreaType.Battlefield && toArea == DroppableAreaUI.AreaType.Hand)
+        if (currentGameState == GameState.PlaceCreatures)
+        {
+            DroppableAreaUI.onElementMovedTo += OnCreaturePlacedOnBattlefield;
+        }
+        else
+        {
+            DroppableAreaUI.onElementMovedTo -= OnCreaturePlacedOnBattlefield;
+        }
+    }
+
+    private void OnCreaturePlacedOnBattlefield(DropableAreaType fromArea, DropableAreaType toArea, DroppableAreaUI fromDroppableAreaUI, DroppableAreaUI toDroppableAreaUI, DragableUI dragableUI)
+    {
+        if (fromArea == DropableAreaType.Battlefield && toArea == DropableAreaType.Hand)
         {
             creatureUISummonedThisTurnByArea.Remove(fromDroppableAreaUI);
         }
 
-        if (fromArea == DroppableAreaUI.AreaType.Hand && toArea == DroppableAreaUI.AreaType.Battlefield)
+        if (fromArea == DropableAreaType.Hand && toArea == DropableAreaType.Battlefield)
         {
             creatureUISummonedThisTurnByArea.Add(toDroppableAreaUI, dragableUI.GetComponent<CreatureUI>());
         }
@@ -38,11 +54,13 @@ public class TurnManager : MonoBehaviour
     {
         print("start revealing creatures");
 
-        int totalPlayerSummon = 0;
+        summonGameEvent = new SummonGameEvent();
+        summonGameEvent.totalPlayerSummon = 0;
+        summonGameEvent.nthPlayerSummon = 0;
 
         foreach (KeyValuePair<DroppableAreaUI, CreatureUI> creatureUIByBattlefieldArea in creatureUISummonedThisTurnByArea)
         {
-            creatureUIByBattlefieldArea.Value.Hide();
+            creatureUIByBattlefieldArea.Value.HideAndLock();
         }
 
         for (int i = 0; i < BattlefieldAreaManager.MAX_FIELD_AREA; i++)
@@ -50,44 +68,39 @@ public class TurnManager : MonoBehaviour
             CreatureUI creatureUIToSummon;
             if (creatureUISummonedThisTurnByArea.TryGetValue(battlefieldAreaManager.GetBattlefieldArea(true, i), out creatureUIToSummon))
             {
-                creatureUIToSummon.Summon(DELAY_TO_REVEAL);
-                totalPlayerSummon++;
+                summonGameEvent.faceOffCreature = battlefieldAreaManager.GetCreatureOnField(false, i);
+                yield return SummonCreatureAtBattlefieldArea(creatureUIToSummon, battlefieldAreaManager.GetBattlefieldArea(true, i));
+                summonGameEvent.totalPlayerSummon++;
             }
 
             if (creatureUISummonedThisTurnByArea.TryGetValue(battlefieldAreaManager.GetBattlefieldArea(false, i), out creatureUIToSummon))
             {
-                creatureUIToSummon.Summon(DELAY_TO_REVEAL);
+                summonGameEvent.faceOffCreature = battlefieldAreaManager.GetCreatureOnField(true, i);
+                yield return SummonCreatureAtBattlefieldArea(creatureUIToSummon, battlefieldAreaManager.GetBattlefieldArea(true, i));
             }
 
             if (creatureUIToSummon != null)
                 yield return new WaitForSeconds(DELAY_TO_REVEAL);
         }
 
-        int nthPlayerSummon = 0;
-        for (int i = 0; i < creatureUISummonedThisTurnByArea.Count; i++)
-        {
-            KeyValuePair<DroppableAreaUI, CreatureUI> creatureUIBydroppableAreaUI = creatureUISummonedThisTurnByArea.ElementAt(i);
-            DroppableAreaUI droppableAreaUI = creatureUIBydroppableAreaUI.Key;
-            CreatureUI creatureUI = creatureUIBydroppableAreaUI.Value;
-
-            if (droppableAreaUI.isControlledByPlayer) nthPlayerSummon++;
-
-            GameEventManager.TriggerEvent(
-                new SummonGameEvent()
-                    {
-                        summonedCreature = creatureUI,
-                        nthPlayerSummon = nthPlayerSummon,
-                        totalPlayerSummon = totalPlayerSummon,
-                        isPlayerCreature = droppableAreaUI.isControlledByPlayer
-                    }
-            );
-        }
+        yield return GameEventManager.TriggerEvent(new AllCreatureSummonedGameEvent() { totalPlayerSummon = summonGameEvent.totalPlayerSummon });
 
         creatureUISummonedThisTurnByArea.Clear();
 
         print("all creatures has been revealed");
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
+    }
+
+    private IEnumerator SummonCreatureAtBattlefieldArea(CreatureUI creatureUI, DroppableAreaUI droppableAreaUI)
+    {
+        creatureUI.Summon(DELAY_TO_REVEAL);
+
+        summonGameEvent.summonedCreature = creatureUI;
+        summonGameEvent.nthPlayerSummon++;
+        summonGameEvent.isPlayerCreature = droppableAreaUI.isControlledByPlayer;
+
+        yield return GameEventManager.TriggerEvent(summonGameEvent);
     }
 
     public void EnemyPlayCreature(DroppableAreaUI droppableAreaUI, CreatureUI creatureUI)
@@ -95,15 +108,22 @@ public class TurnManager : MonoBehaviour
         creatureUISummonedThisTurnByArea.Add(droppableAreaUI, creatureUI);
     }
 
-    public void MoveToNextRound()
+    public IEnumerator MoveToNextRound()
     {
         Round++;
 
         roundsParent.GetChild(0).GetChild(1).gameObject.SetActive(true);
+
+        foreach (CreatureUI creatureUIOnBattlefield in battlefieldAreaManager.GetAllCreaturesOnBattlefield())
+        {
+            creatureUIOnBattlefield.ResetTempStats();
+        }
+
+        yield return GameEventManager.TriggerEvent(new EndTurnGameEvent());
     }
 
     private void OnDestroy()
     {
-        DroppableAreaUI.onElementMovedTo -= OnCreaturePlacedOnBattlefield;
+        gameManager.onGameStateChanged -= OnGameStateChangedListenCardsMove;
     }
 }

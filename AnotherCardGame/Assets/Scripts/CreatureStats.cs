@@ -33,26 +33,39 @@ public class CreatureStats
 
     public static CreatureStats operator +(CreatureStats a, CreatureStats b)
     {
-        return new CreatureStats { power = a.power + b.power, shield = a.shield + b.shield };
+        CreatureStats newStats = new CreatureStats { manaCost = a.manaCost + b.manaCost, power = a.power + b.power, shield = a.shield + b.shield };
+
+        newStats.manaCost = newStats.manaCost < 0 ? 0 : newStats.manaCost;
+        newStats.power = newStats.power < 0 ? 0 : newStats.power;
+        newStats.shield = newStats.shield < 0 ? 0 : newStats.shield;
+
+        return newStats;
     }
 
     public static CreatureStats operator -(CreatureStats a, CreatureStats b)
     {
-        return new CreatureStats { power = a.power - b.power, shield = a.shield - b.shield };
+        CreatureStats newStats = new CreatureStats { manaCost = a.manaCost - b.manaCost, power = a.power - b.power, shield = a.shield - b.shield };
+        newStats.manaCost = newStats.manaCost < 0 ? 0 : newStats.manaCost;
+        newStats.power = newStats.power < 0 ? 0 : newStats.power;
+        newStats.shield = newStats.shield < 0 ? 0 : newStats.shield;
+
+        return newStats;
     }
 
     public static CreatureStats operator *(CreatureStats a, CreatureStats b)
     {
         b.power = b.power == 0 ? 1 : b.power;
         b.shield = b.shield == 0 ? 1 : b.shield;
-        return new CreatureStats { power = a.power * b.power, shield = a.shield * b.shield };
+        b.manaCost = b.manaCost == 0 ? 1 : b.manaCost;
+        return new CreatureStats { manaCost = a.manaCost * b.manaCost, power = a.power * b.power, shield = a.shield * b.shield };
     }
 
     public static CreatureStats operator /(CreatureStats a, CreatureStats b)
     {
         b.power = b.power == 0 ? 1 : b.power;
         b.shield = b.shield == 0 ? 1 : b.shield;
-        return new CreatureStats { power = a.power / b.power, shield = a.shield / b.shield };
+        b.manaCost = b.manaCost == 0 ? 1 : b.manaCost;
+        return new CreatureStats { manaCost = a.manaCost / b.manaCost, power = a.power / b.power, shield = a.shield / b.shield };
     }
 
     public static bool operator >(CreatureStats a, CreatureStats b)
