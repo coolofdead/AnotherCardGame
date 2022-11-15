@@ -18,15 +18,14 @@ MonoBehaviour:
   subCreatureTypeWater: 0
   stats:
     manaCost: 3
-    power: 2000
-    shield: 2000
-  creatureName: 7
-  effectDescription: ?????????????
+    power: 500
+    shield: 0
+  creatureName: Blrplrprp
   artwork: {fileID: 21300000, guid: 5750a849acdfe7b49a80dc430a01b92f, type: 3}
   artworkPositionOffset: {x: 0, y: 0}
-  artworkScale: {x: 1.4, y: 1.4}
+  artworkScale: {x: 1.7, y: 1.7}
   battleArtworkAnchoredPosition: {x: 0, y: 0}
-  battleArtworkScale: {x: 0, y: 0}
+  battleArtworkScale: {x: 1.7, y: 1.7}
   flipArtworkOnBattle: 0
-  effects: 80
+  effects: 8
   attackAnimationPrefab: {fileID: 1039800436, guid: a36c214c0d77b474d9a757b0a0105b91, type: 3}

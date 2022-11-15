@@ -20,6 +20,11 @@ public class PowerPlusEffect : AbstractCreatureEffect
         return EffectTiming.OnAttackDeclaration;
     }
 
+    public override string GetEffectDescription()
+    {
+        return "Get +1000 power by opponent mana cost";
+    }
+
     public override Effect GetEffectType()
     {
         return Effect.PowerPlus;
@@ -32,10 +37,5 @@ public class PowerPlusEffect : AbstractCreatureEffect
         bool isPlayerCreatureFighting = creatureOwner == battleDeclarationGameEvent.playerCreatureUI;
         bool isOpoonentCreatureFighting = creatureOwner == battleDeclarationGameEvent.opponentCreatureUI;
         return isPlayerCreatureFighting || isOpoonentCreatureFighting;
-    }
-
-    public override string ToString()
-    {
-        return Effect.PowerPlus.ToString();
     }
 }

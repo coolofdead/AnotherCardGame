@@ -18,15 +18,14 @@ MonoBehaviour:
   subCreatureTypeWater: 0
   stats:
     manaCost: 2
-    power: 1000
+    power: 500
     shield: 0
-  creatureName: 2
-  effectDescription: ?????????????
+  creatureName: "Plante d\xE9voreuse"
   artwork: {fileID: 21300000, guid: af2567d25488f684f8afcfad06de0ed5, type: 3}
   artworkPositionOffset: {x: 0, y: 0}
-  artworkScale: {x: 1.4, y: 1.4}
+  artworkScale: {x: 1.7, y: 1.7}
   battleArtworkAnchoredPosition: {x: 0, y: 0}
-  battleArtworkScale: {x: 0, y: 0}
+  battleArtworkScale: {x: 1.7, y: 1.7}
   flipArtworkOnBattle: 0
-  effects: 80
+  effects: 64
   attackAnimationPrefab: {fileID: 1039800436, guid: a36c214c0d77b474d9a757b0a0105b91, type: 3}

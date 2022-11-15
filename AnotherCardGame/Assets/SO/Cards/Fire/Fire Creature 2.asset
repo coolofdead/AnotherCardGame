@@ -17,16 +17,16 @@ MonoBehaviour:
   subCreatureTypePlant: 2
   subCreatureTypeWater: 0
   stats:
-    manaCost: 2
-    power: 2000
-    shield: 2000
+    manaCost: 1
+    power: 500
+    shield: 0
   creatureName: "H\xE9riti\xE9re des flammes"
   effectDescription: 
-  artwork: {fileID: 21300000, guid: b32e6e7773fded3438ccc04d5b9dc754, type: 3}
+  artwork: {fileID: 21300000, guid: f03e169c8711abb418f80dc80273bdbe, type: 3}
   artworkPositionOffset: {x: 0, y: -10}
   artworkScale: {x: 1.7, y: 1.7}
   battleArtworkAnchoredPosition: {x: 0, y: 0}
   battleArtworkScale: {x: 0, y: 0}
   flipArtworkOnBattle: 0
-  effects: 2
+  effects: 32
   attackAnimationPrefab: {fileID: 1009518145418458842, guid: 0faaa87c841dba943881401a65676408, type: 3}

@@ -16,6 +16,11 @@ public class DefenderEffect : AbstractCreatureEffect
         return EffectTiming.OnSummon;
     }
 
+    public override string GetEffectDescription()
+    {
+        return "Cannot attack directly";
+    }
+
     public override Effect GetEffectType()
     {
         return Effect.Defender;
@@ -26,10 +31,5 @@ public class DefenderEffect : AbstractCreatureEffect
         SummonGameEvent summonGameEvent = gameEvent as SummonGameEvent;
 
         return creatureOwner == summonGameEvent.summonedCreature;
-    }
-
-    public override string ToString()
-    {
-        return Effect.Defender.ToString();
     }
 }

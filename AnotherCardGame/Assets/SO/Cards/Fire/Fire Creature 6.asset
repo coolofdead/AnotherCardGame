@@ -17,9 +17,9 @@ MonoBehaviour:
   subCreatureTypePlant: 2
   subCreatureTypeWater: 0
   stats:
-    manaCost: 2
-    power: 2000
-    shield: 2000
+    manaCost: 3
+    power: 3000
+    shield: 0
   creatureName: Flying Firestorm
   effectDescription: +4000 Power and -1 Nb Hit
   artwork: {fileID: 21300000, guid: e75e225fd97f59b489164571113a1a12, type: 3}

@@ -17,16 +17,15 @@ MonoBehaviour:
   subCreatureTypePlant: 10
   subCreatureTypeWater: 0
   stats:
-    manaCost: 1
-    power: 1000
-    shield: 2000
-  creatureName: 5
-  effectDescription: ?????????????
+    manaCost: 4
+    power: 500
+    shield: 0
+  creatureName: Hougabouga
   artwork: {fileID: 21300000, guid: f3aae780af11e7847a4ee842ac0612f9, type: 3}
   artworkPositionOffset: {x: 0, y: 0}
-  artworkScale: {x: 1.4, y: 1.4}
+  artworkScale: {x: 1.7, y: 1.7}
   battleArtworkAnchoredPosition: {x: 0, y: 0}
-  battleArtworkScale: {x: 0, y: 0}
-  flipArtworkOnBattle: 0
-  effects: 80
+  battleArtworkScale: {x: 1.7, y: 1.7}
+  flipArtworkOnBattle: 1
+  effects: 192
   attackAnimationPrefab: {fileID: 1039800436, guid: a36c214c0d77b474d9a757b0a0105b91, type: 3}

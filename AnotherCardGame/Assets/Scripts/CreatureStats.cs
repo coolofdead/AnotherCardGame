@@ -4,7 +4,7 @@ using System;
 [Serializable]
 public class CreatureStats
 {
-    [Range(0, 4)]
+    [Range(1, 4)]
     public int manaCost;
     [RangeEx(0, 14000, 500)]
     public int power;

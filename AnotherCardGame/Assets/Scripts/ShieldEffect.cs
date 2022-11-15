@@ -16,6 +16,11 @@ public class ShieldEffect : AbstractCreatureEffect
         return EffectTiming.OnSummon;
     }
 
+    public override string GetEffectDescription()
+    {
+        return "On summon get 1000 shield * mana cost";
+    }
+
     public override Effect GetEffectType()
     {
         return Effect.Shield;
@@ -26,10 +31,5 @@ public class ShieldEffect : AbstractCreatureEffect
         SummonGameEvent summonGameEvent = gameEvent as SummonGameEvent;
 
         return creatureOwner == summonGameEvent.summonedCreature;
-    }
-
-    public override string ToString()
-    {
-        return Effect.Shield.ToString();
     }
 }

@@ -19,6 +19,11 @@ public class ReturnEffect : AbstractCreatureEffect
         return EffectTiming.OnEndOfTurn;
     }
 
+    public override string GetEffectDescription()
+    {
+        return "Go back to hand at the end of turn";
+    }
+
     public override Effect GetEffectType()
     {
         return Effect.Return;
@@ -27,10 +32,5 @@ public class ReturnEffect : AbstractCreatureEffect
     public override bool RequirementsMet(GameEvent gameEvent)
     {
         return true;
-    }
-
-    public override string ToString()
-    {
-        return Effect.Return.ToString();
     }
 }

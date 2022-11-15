@@ -60,8 +60,8 @@ public class RedrawEffect : AbstractCreatureEffect
         return Effect.Redraw;
     }
 
-    public override string ToString()
+    public override string GetEffectDescription()
     {
-        return Effect.Redraw.ToString();
+        return "Redraw X where X equal total summon you made this turn";
     }
 }

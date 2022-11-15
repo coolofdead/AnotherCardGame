@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class CreatureUI : MonoBehaviour
 {
+    public static Action<CreatureUI> onCardHoverEnter;
+    public static Action<CreatureUI> onCardHoverExit;
+
     public Color plantFrameColor;
     public Color fireFrameColor;
     public Color waterFrameColor;
@@ -134,6 +138,16 @@ public class CreatureUI : MonoBehaviour
     public void ResetTempStats()
     {
         tempBonusStats = new CreatureStats();
+    }
+
+    public void HoverEnter()
+    {
+        onCardHoverEnter?.Invoke(this);
+    }
+
+    public void HoverExit()
+    {
+        onCardHoverExit?.Invoke(this);
     }
 
     public void ShowDeath()

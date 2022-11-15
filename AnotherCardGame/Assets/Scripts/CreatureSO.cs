@@ -19,7 +19,6 @@ public class CreatureSO : ScriptableObject
 
     [Header("Creature Infos")]
     public string creatureName;
-    public string effectDescription;
     public Sprite artwork;
 
     [Header("UI Params")]

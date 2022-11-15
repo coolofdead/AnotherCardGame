@@ -1334,11 +1334,16 @@ MonoBehaviour:
   waterDeathAnimation: {fileID: 198991184}
   dragableUI: {fileID: 2047212990}
   creatureSO: {fileID: 0}
-  stats:
+  persistentBonusStats:
+    manaCost: 0
+    power: 0
+    shield: 0
+  tempBonusStats:
     manaCost: 0
     power: 0
     shield: 0
   slayerCreatureUI: {fileID: 0}
+  canAttackDirectly: 1
 --- !u!114 &2047212990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1405,6 +1410,38 @@ MonoBehaviour:
           m_TargetAssemblyTypeName: DragableUI, Assembly-CSharp
           m_MethodName: EndHandler
           m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3158597077911017994}
+          m_TargetAssemblyTypeName: CreatureUI, Assembly-CSharp
+          m_MethodName: HoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3158597077911017994}
+          m_TargetAssemblyTypeName: CreatureUI, Assembly-CSharp
+          m_MethodName: HoverExit
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

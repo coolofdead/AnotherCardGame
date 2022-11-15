@@ -26,7 +26,10 @@ public class BattlefieldAreaManager : AbstractManager<BattlefieldAreaManager>
     {
         DroppableAreaUI[] droppableAreaUIs = playerField ? playerBattlefieldAreas : opponentBattlefieldAreas;
 
-        return droppableAreaUIs[fieldIndex].ElemOnArea?.GetComponent<CreatureUI>();
+        CreatureUI creatureUI = null;
+        if (droppableAreaUIs[fieldIndex].ElemOnArea != null)
+            creatureUI = droppableAreaUIs[fieldIndex].ElemOnArea.GetComponent<CreatureUI>();
+        return creatureUI;
     }
 
     public DroppableAreaUI GetBattlefieldArea(bool playerField, int fieldIndex)
@@ -41,7 +44,7 @@ public class BattlefieldAreaManager : AbstractManager<BattlefieldAreaManager>
         return battlefieldTransform.GetComponentsInChildren<CreatureUI>();
     }
 
-    public DroppableAreaUI[] GetAllBattlefieldAreasAvailable(bool getPlayerSide)
+    public List<DroppableAreaUI> GetAllBattlefieldAreasAvailable(bool getPlayerSide)
     {
         List<DroppableAreaUI> availableBattlefieldAreas = new List<DroppableAreaUI>();
         for (int i = 0; i < MAX_FIELD_AREA; i++)
@@ -52,6 +55,6 @@ public class BattlefieldAreaManager : AbstractManager<BattlefieldAreaManager>
                 availableBattlefieldAreas.Add(droppableAreaUI);
             }
         }
-        return availableBattlefieldAreas.ToArray();
+        return availableBattlefieldAreas;
     }
 }

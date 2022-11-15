@@ -18,7 +18,7 @@ MonoBehaviour:
   subCreatureTypeWater: 0
   stats:
     manaCost: 4
-    power: 4000
+    power: 3500
     shield: 0
   creatureName: Ember elves
   effectDescription: Power >4000 ; Deal 8000 Damage
@@ -27,6 +27,6 @@ MonoBehaviour:
   artworkScale: {x: 1.7, y: 1.7}
   battleArtworkAnchoredPosition: {x: 0, y: 0}
   battleArtworkScale: {x: 0, y: 0}
-  flipArtworkOnBattle: 0
-  effects: 64
+  flipArtworkOnBattle: 1
+  effects: 256
   attackAnimationPrefab: {fileID: 1009518145418458842, guid: 0faaa87c841dba943881401a65676408, type: 3}

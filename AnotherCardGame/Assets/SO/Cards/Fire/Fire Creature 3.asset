@@ -18,15 +18,14 @@ MonoBehaviour:
   subCreatureTypeWater: 0
   stats:
     manaCost: 3
-    power: 3000
-    shield: 3000
+    power: 1000
+    shield: 0
   creatureName: Hornet Burned
-  effectDescription: +3000 Power
   artwork: {fileID: 21300000, guid: df58c9515e5e011408972ca33090437e, type: 3}
   artworkPositionOffset: {x: 0, y: -10}
   artworkScale: {x: 1.7, y: 1.7}
   battleArtworkAnchoredPosition: {x: 0, y: 0}
   battleArtworkScale: {x: 0, y: 0}
   flipArtworkOnBattle: 1
-  effects: 2
+  effects: 32
   attackAnimationPrefab: {fileID: 1009518145418458842, guid: 0faaa87c841dba943881401a65676408, type: 3}

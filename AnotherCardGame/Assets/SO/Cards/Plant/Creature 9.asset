@@ -17,16 +17,15 @@ MonoBehaviour:
   subCreatureTypePlant: 10
   subCreatureTypeWater: 0
   stats:
-    manaCost: 3
-    power: 3000
+    manaCost: 4
+    power: 2000
     shield: 0
-  creatureName: Jean
-  effectDescription: ?????????????
+  creatureName: MhaxiTri
   artwork: {fileID: 21300000, guid: 8e6968f14a8cb2c46a37c88a36ae08b0, type: 3}
   artworkPositionOffset: {x: 0, y: 0}
-  artworkScale: {x: 1.4, y: 1.4}
+  artworkScale: {x: 1.7, y: 1.7}
   battleArtworkAnchoredPosition: {x: 0, y: 0}
-  battleArtworkScale: {x: 0, y: 0}
+  battleArtworkScale: {x: 1.7, y: 1.7}
   flipArtworkOnBattle: 0
-  effects: 80
+  effects: 136
   attackAnimationPrefab: {fileID: 1039800436, guid: a36c214c0d77b474d9a757b0a0105b91, type: 3}

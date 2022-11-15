@@ -20,12 +20,7 @@ public class ChoiceManager : AbstractManager<ChoiceManager>
 
         choicesPanel.SetActive(true);
 
-        int nbChildren = choicesTransform.childCount;
-
-        for (int i = nbChildren - 1; i >= 0; i--)
-        {
-            Destroy(choicesTransform.GetChild(i).gameObject);
-        }
+        choicesTransform.DestroyAllChildren();
 
         choiceDroppableAreas.Clear();
         for (int i = 0; i < choicesDetails.nbChoices; i++)

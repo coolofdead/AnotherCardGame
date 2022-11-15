@@ -19,6 +19,11 @@ public class PowerReduceEffect : AbstractCreatureEffect
         return EffectTiming.OnSummon;
     }
 
+    public override string GetEffectDescription()
+    {
+        return "Reduce definetly the opp power by 1000 * this creature's mana cost";
+    }
+
     public override Effect GetEffectType()
     {
         return Effect.PowerReduce;
@@ -29,10 +34,5 @@ public class PowerReduceEffect : AbstractCreatureEffect
         SummonGameEvent summonGameEvent = gameEvent as SummonGameEvent;
 
         return creatureOwner == summonGameEvent.summonedCreature;
-    }
-
-    public override string ToString()
-    {
-        return Effect.PowerReduce.ToString();
     }
 }

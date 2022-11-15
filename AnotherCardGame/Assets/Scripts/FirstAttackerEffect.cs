@@ -17,6 +17,11 @@ public class FirstAttackerEffect : AbstractCreatureEffect
         return EffectTiming.OnAttackDeclaration;
     }
 
+    public override string GetEffectDescription()
+    {
+        return "Get +1000 power if first attacking";
+    }
+
     public override Effect GetEffectType()
     {
         return Effect.FirstAttacker;
@@ -29,10 +34,5 @@ public class FirstAttackerEffect : AbstractCreatureEffect
         bool isPlayerCreatureFighting = creatureOwner == battleDeclarationGameEvent.playerCreatureUI;
         bool isOpoonentCreatureFighting = creatureOwner == battleDeclarationGameEvent.opponentCreatureUI;
         return battleDeclarationGameEvent.nthBattle == BattleFightManager.FIRST_BATTLE_NTH && (isPlayerCreatureFighting || isOpoonentCreatureFighting);
-    }
-
-    public override string ToString()
-    {
-        return Effect.FirstAttacker.ToString();
     }
 }

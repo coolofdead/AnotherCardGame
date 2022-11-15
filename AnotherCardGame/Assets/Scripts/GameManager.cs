@@ -13,7 +13,6 @@ public class GameManager : AbstractManager<GameManager>
     [Header("UI")]
     public GameObject waitingPanel;
     public GameObject startFightButton;
-    public TextMeshProUGUI creatureInHandDescriptionTMP;
 
     [Header("Managers")]
     public EnemyManager enemyManager;

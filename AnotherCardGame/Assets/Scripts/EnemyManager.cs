@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class EnemyManager : AbstractManager<EnemyManager>
 {
@@ -15,18 +16,18 @@ public class EnemyManager : AbstractManager<EnemyManager>
     {
         int currentMana = Player.MAX_MANA;
 
-        DroppableAreaUI[] availableBattlefieldAreas = battlefieldAreaManager.GetAllBattlefieldAreasAvailable(false);
-        int nthBattlefieldArea = 0;
+        List<DroppableAreaUI> availableBattlefieldAreas = battlefieldAreaManager.GetAllBattlefieldAreasAvailable(false);
+        availableBattlefieldAreas = availableBattlefieldAreas.Randomize().ToList();
 
         // Bot choose creature logic
         foreach (CreatureSO creatureSO in gameManager.opponent.hand)
         {
-            if (creatureSO.stats.manaCost <= currentMana && nthBattlefieldArea < availableBattlefieldAreas.Length)
+            if (creatureSO.stats.manaCost <= currentMana && availableBattlefieldAreas.Count > 0)
             {
                 currentMana -= creatureSO.stats.manaCost;
 
-                SummonAt(creatureSO, availableBattlefieldAreas[nthBattlefieldArea]);
-                nthBattlefieldArea++;
+                SummonAt(creatureSO, availableBattlefieldAreas[0]);
+                availableBattlefieldAreas.RemoveAt(0);
             }
         }
     }

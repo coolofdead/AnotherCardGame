@@ -60,5 +60,5 @@ public abstract class AbstractCreatureEffect
 
     public abstract Effect GetEffectType();
 
-    //public new abstract string ToString();
+    public abstract string GetEffectDescription();
 }
